@@ -4,7 +4,7 @@ class AnswersController < ApplicationController
   before_filter :store_location, :only => [:index, :show, :new, :edit]
   before_filter :get_user_if_nil, :except => [:edit]
   before_filter :get_question
-  cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :question_sweeper, :only => [:create, :update, :destroy]
 
   # GET /answers
   # GET /answers.xml
