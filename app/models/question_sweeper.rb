@@ -3,8 +3,8 @@ class QuestionSweeper < ActionController::Caching::Sweeper
   include ExpireEditableFragment
 
   def after_save(record)
-    case
-    when record.is_a?(Answer)
+    case record.to_s.to_sym
+    when :Answer
       record.items.each do |item|
         expire_editable_fragment(item.manifestation, ['detail'])
       end
