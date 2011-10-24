@@ -64,10 +64,6 @@ class AnswersController < ApplicationController
   # GET /answers/1
   # GET /answers/1.xml
   def show
-    if @question
-      @answer = @question.answers.find(params[:id])
-    end
-
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @answer.to_xml }
@@ -87,9 +83,6 @@ class AnswersController < ApplicationController
 
   # GET /answers/1;edit
   def edit
-    if @question
-      @answer = @question.answers.find(params[:id])
-    end
   end
 
   # POST /answers
@@ -118,10 +111,6 @@ class AnswersController < ApplicationController
   # PUT /answers/1
   # PUT /answers/1.xml
   def update
-    if @question
-      @answer = @question.answers.find(params[:id])
-    end
-
     respond_to do |format|
       if @answer.update_attributes(params[:answer])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.answer'))
@@ -137,9 +126,6 @@ class AnswersController < ApplicationController
   # DELETE /answers/1
   # DELETE /answers/1.xml
   def destroy
-    if @question
-      @answer = @question.answers.find(params[:id])
-    end
     @answer.destroy
 
     respond_to do |format|

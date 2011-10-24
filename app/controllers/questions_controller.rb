@@ -106,12 +106,6 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.xml
   def show
-    if @user
-      @question = @user.questions.find(params[:id])
-    else
-      @question = Question.find(params[:id])
-    end
-
     respond_to do |format|
       format.html # show.rhtml
       format.xml  {
@@ -132,11 +126,6 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1;edit
   def edit
-    if @user
-      @question = @user.questions.find(params[:id])
-    else
-      @question = Question.find(params[:id])
-    end
   end
 
   # POST /questions
@@ -159,8 +148,6 @@ class QuestionsController < ApplicationController
   # PUT /questions/1
   # PUT /questions/1.xml
   def update
-    @question = @user.questions.find(params[:id])
-
     respond_to do |format|
       if @question.update_attributes(params[:question])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.question'))
@@ -176,11 +163,6 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1
   # DELETE /questions/1.xml
   def destroy
-    if @user
-      @question = @user.questions.find(params[:id])
-    else
-      @question = Question.find(params[:id])
-    end
     @question.destroy
 
     respond_to do |format|
