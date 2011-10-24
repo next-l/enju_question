@@ -148,7 +148,7 @@ class QuestionsController < ApplicationController
       if @question.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.question'))
         format.html { redirect_to @question }
-        format.xml  { render :xml => @question, :status => :created, :location => user_question_url(@question.user, @question) }
+        format.xml  { render :xml => @question, :status => :created, :location => question_url(@question) }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @question.errors.to_xml }

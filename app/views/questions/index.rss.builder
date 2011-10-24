@@ -33,8 +33,8 @@ xml.rss('version' => "2.0",
         #xml.description(question.title)
         # rfc822
         xml.pubDate question.created_at.utc.rfc822
-        xml.link user_question_url(question.user, question)
-        xml.guid user_question_url(question.user, question), :isPermaLink => "true"
+        xml.link question_url(question)
+        xml.guid question_url(question), :isPermaLink => "true"
       end
     end
   }
