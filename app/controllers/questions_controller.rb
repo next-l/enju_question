@@ -54,13 +54,11 @@ class QuestionsController < ApplicationController
     c_user = current_user
 
     search.build do
-       with(:username).equal_to user.username if user
-      if c_user
+      with(:username).equal_to user.username if user
+      if c_user != user
         unless c_user.has_role?('Librarian')
           with(:shared).equal_to true
         end
-      else
-        with(:shared).equal_to true
       end
       facet :solved
     end
