@@ -87,6 +87,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
+      format.json { render :json => @questions.to_json }
       format.xml {
         if params[:mode] == 'crd'
           render :template => 'questions/index_crd'
@@ -95,7 +96,6 @@ class QuestionsController < ApplicationController
           render :xml => @questions.to_xml
         end
       }
-      format.json { render :json => @questions.to_json }
       format.rss  { render :layout => false }
       format.atom
       format.js
@@ -107,12 +107,13 @@ class QuestionsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.rhtml
-      format.json {
+      format.json { render :json => @answer.to_json }
+      format.xml {
         if params[:mode] == 'crd'
           render :template => 'questions/show_crd'
           convert_charset
         else
-          render :json => @question.to_json
+          render :json => @question.to_xml
         end
       }
     end
