@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.question')) -%></h1>
 <div id="content_list">
 
-<%= form_for(@question, :url => user_question_path(@question.user, @question)) do |f| -%>
+<%= form_for(@question) do |f| -%>
   <%= f.error_messages -%>
 
   <div class="field">
@@ -38,7 +38,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.show'), user_question_path(@question.user, @question) -%></li>
+    <li><%= link_to t('page.show'), @question -%></li>
     <li><%= link_to t('page.back'), user_questions_path(@question.user) -%></li>
   </ul>
 </div>
