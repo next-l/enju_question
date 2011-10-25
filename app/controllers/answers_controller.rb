@@ -129,7 +129,7 @@ class AnswersController < ApplicationController
     @answer.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_question_answers_url(@answer.question.user.username, @answer.question) }
+      format.html { redirect_to question_answers_url(@answer.question) }
       format.xml  { head :ok }
     end
   end
