@@ -6,7 +6,7 @@ class QuestionsController < ApplicationController
   after_filter :solr_commit, :only => [:create, :update, :destroy]
 
   # GET /questions
-  # GET /questions.xml
+  # GET /questions.json
   def index
     store_location
     session[:params] = {} unless session[:params]
@@ -87,7 +87,8 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.xml  {
+      format.json { render :json => @questions.to_json }
+      format.xml {
         if params[:mode] == 'crd'
           render :template => 'questions/index_crd'
           convert_charset
@@ -102,16 +103,17 @@ class QuestionsController < ApplicationController
   end
 
   # GET /questions/1
-  # GET /questions/1.xml
+  # GET /questions/1.json
   def show
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  {
+      format.json { render :json => @answer.to_json }
+      format.xml {
         if params[:mode] == 'crd'
           render :template => 'questions/show_crd'
           convert_charset
         else
-          render :xml => @question.to_xml
+          render :json => @question.to_xml
         end
       }
     end
@@ -127,7 +129,7 @@ class QuestionsController < ApplicationController
   end
 
   # POST /questions
-  # POST /questions.xml
+  # POST /questions.json
   def create
     @question = current_user.questions.new(params[:question])
 
@@ -135,37 +137,37 @@ class QuestionsController < ApplicationController
       if @question.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.question'))
         format.html { redirect_to @question }
-        format.xml  { render :xml => @question, :status => :created, :location => question_url(@question) }
+        format.json { render :json => @question, :status => :created, :location => question_url(@question) }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @question.errors.to_xml }
+        format.json { render :json => @question.errors.to_json }
       end
     end
   end
 
   # PUT /questions/1
-  # PUT /questions/1.xml
+  # PUT /questions/1.json
   def update
     respond_to do |format|
       if @question.update_attributes(params[:question])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.question'))
         format.html { redirect_to @question }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @question.errors.to_xml }
+        format.json { render :json => @question.errors.to_json }
       end
     end
   end
 
   # DELETE /questions/1
-  # DELETE /questions/1.xml
+  # DELETE /questions/1.json
   def destroy
     @question.destroy
 
     respond_to do |format|
       format.html { redirect_to user_questions_url(@question.user) }
-      format.xml  { head :ok }
+      format.json { head :ok }
     end
   end
 end

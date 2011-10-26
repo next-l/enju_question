@@ -7,7 +7,7 @@ class AnswersController < ApplicationController
   cache_sweeper :question_sweeper, :only => [:create, :update, :destroy]
 
   # GET /answers
-  # GET /answers.xml
+  # GET /answers.json
   def index
     begin
       if !current_user.has_role?('Librarian')
@@ -55,18 +55,18 @@ class AnswersController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.xml  { render :xml => @answers.to_xml }
+      format.json { render :json => @answers.to_json }
       format.rss  { render :layout => false }
       format.atom
     end
   end
 
   # GET /answers/1
-  # GET /answers/1.xml
+  # GET /answers/1.json
   def show
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  { render :xml => @answer.to_xml }
+      format.json { render :json => @answer.to_json }
     end
   end
 
@@ -86,7 +86,7 @@ class AnswersController < ApplicationController
   end
 
   # POST /answers
-  # POST /answers.xml
+  # POST /answers.json
   def create
     @answer = current_user.answers.new(params[:answer])
     unless @answer.question
@@ -98,39 +98,39 @@ class AnswersController < ApplicationController
       if @answer.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.answer'))
         format.html { redirect_to(@answer) }
-        format.xml  { render :xml => @answer, :status => :created, :location => answer_url(@answer) }
+        format.json { render :json => @answer, :status => :created, :location => answer_url(@answer) }
         format.mobile { redirect_to question_url(@answer.question) }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @answer.errors.to_xml }
+        format.json { render :json => @answer.errors.to_json }
         format.mobile { render :action => "new" }
       end
     end
   end
 
   # PUT /answers/1
-  # PUT /answers/1.xml
+  # PUT /answers/1.json
   def update
     respond_to do |format|
       if @answer.update_attributes(params[:answer])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.answer'))
         format.html { redirect_to(@answer) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @answer.errors.to_xml }
+        format.json { render :json => @answer.errors.to_json }
       end
     end
   end
 
   # DELETE /answers/1
-  # DELETE /answers/1.xml
+  # DELETE /answers/1.json
   def destroy
     @answer.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_question_answers_url(@answer.question.user.username, @answer.question) }
-      format.xml  { head :ok }
+      format.html { redirect_to question_answers_url(@answer.question) }
+      format.json { head :ok }
     end
   end
 end

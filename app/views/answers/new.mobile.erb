@@ -4,7 +4,7 @@
 <div data-role="content">
   <div id="detail">
 
-<%= form_for(@answer, :url => user_question_answers_path(@answer.question.user, @answer.question)) do |f| -%>
+<%= form_for(@answer, :url => question_answers_path(@answer.question)) do |f| -%>
   <%= f.error_messages -%>
   <div class="field">
     <%= f.label t('activerecord.models.question') -%><br />

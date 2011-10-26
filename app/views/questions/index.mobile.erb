@@ -14,7 +14,7 @@
 
 <ul data-role="listview">
 <% @questions.each do |question| %>
-  <li><%= link_to truncate(question.body, :length => 60), user_question_path(question.user, question) -%></li>
+  <li><%= link_to truncate(question.body, :length => 60), question -%></li>
 <% end %>
 </ul>
 
