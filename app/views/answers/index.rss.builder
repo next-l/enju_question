@@ -23,8 +23,8 @@ xml.rss('version' => "2.0",
         #xml.description(answer.title)
         # rfc822
         xml.pubDate answer.created_at.utc.rfc822
-        xml.link "#{request.protocol}#{request.host_with_port}" + user_answer_path(answer.user, answer)
-        xml.guid "#{request.protocol}#{request.host_with_port}" + user_answer_path(answer.user, answer), :isPermaLink => "true"
+        xml.link "#{request.protocol}#{request.host_with_port}" + answer_path(answer)
+        xml.guid "#{request.protocol}#{request.host_with_port}" + answer_path(answer), :isPermaLink => "true"
       end
     end
   }
