@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 class AnswersController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :except => :index
+  authorize_resource :only => :index
   before_filter :store_location, :only => [:index, :show, :new, :edit]
   before_filter :get_user_if_nil, :except => [:edit]
   before_filter :get_question
@@ -9,16 +10,15 @@ class AnswersController < ApplicationController
   # GET /answers
   # GET /answers.json
   def index
-    begin
-      if !current_user.has_role?('Librarian')
-        if @question
-          raise unless @question.shared?
-        else
-          raise unless current_user == @user
+    if !current_user.try(:has_role?, 'Librarian')
+      if @question
+        unless @question.try(:shared?)
+          access_denied; return
         end
       end
-    rescue
-      access_denied; return
+      if @user and @user != current_user
+        access_denied; return
+      end
     end
 
     @count = {}
@@ -49,7 +49,11 @@ class AnswersController < ApplicationController
         end
       end
     else
-      @answers = Answer.public_answers.order('answers.id').page(params[:page])
+      if @question
+        @answers = @question.answers.public_answers.order('answers.id').page(params[:page])
+      else
+        @answers = Answer.public_answers.order('answers.id').page(params[:page])
+      end
     end
     @count[:query_result] = @answers.size
 
