@@ -16,13 +16,8 @@ class AnswersController < ApplicationController
           access_denied; return
         end
       end
-      if @user
-        if @user == current_user
-          redirect_to answers_url(:format => params[:format])
-          return
-        else
-          access_denied; return
-        end
+      if @user != current_user
+        access_denied; return
       end
     end
 
@@ -30,34 +25,34 @@ class AnswersController < ApplicationController
     if user_signed_in?
       if current_user.has_role?('Librarian')
         if @question
-          @answers = @question.answers.order('answers.id').page(params[:page])
+          @answers = @question.answers.order('answers.id DESC').page(params[:page])
         elsif @user
-          @answers = @user.answers.order('answers.id').page(params[:page])
+          @answers = @user.answers.order('answers.id DESC').page(params[:page])
         else
-          @answers = Answer.order('answers.id').page(params[:page])
+          @answers = Answer.order('answers.id DESC').page(params[:page])
         end
       else
         if @question
           if @question.user == current_user
-            @answers = @question.answers.order('answers.id').page(params[:page])
+            @answers = @question.answers.order('answers.id DESC').page(params[:page])
           else
-            @answers = @question.answers.public_answers.order('answers.id').page(params[:page])
+            @answers = @question.answers.public_answers.order('answers.id DESC').page(params[:page])
           end
         elsif @user
           if @user == current_user
-            @answers = @user.answers.order('answers.id').page(params[:page])
+            @answers = @user.answers.order('answers.id DESC').page(params[:page])
           else
-            @answers = @user.answers.public_answers.order('answers.id').page(params[:page])
+            @answers = @user.answers.public_answers.order('answers.id DESC').page(params[:page])
           end
         else
-          @answers = Answer.public_answers.order('answers.id').page(params[:page])
+          @answers = Answer.public_answers.order('answers.id DESC').page(params[:page])
         end
       end
     else
       if @question
-        @answers = @question.answers.public_answers.order('answers.id').page(params[:page])
+        @answers = @question.answers.public_answers.order('answers.id DESC').page(params[:page])
       else
-        @answers = Answer.public_answers.order('answers.id').page(params[:page])
+        @answers = Answer.public_answers.order('answers.id DESC').page(params[:page])
       end
     end
     @count[:query_result] = @answers.size

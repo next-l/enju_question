@@ -9,14 +9,8 @@ class QuestionsController < ApplicationController
   # GET /questions.json
   def index
     store_location
-    if @user
-      if user_signed_in?
-        if current_user == @user
-          redirect_to questions_url(:format => params[:format])
-          return
-        end
-        user = @user
-      end
+    if @user and user_signed_in?
+      user = @user
     end
     c_user = current_user
 
