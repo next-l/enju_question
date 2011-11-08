@@ -33,26 +33,26 @@ class AnswersController < ApplicationController
         end
       else
         if @question
-          if @question.user == current_user
+          if @question.shared?
             @answers = @question.answers.order('answers.id DESC').page(params[:page])
           else
-            @answers = @question.answers.public_answers.order('answers.id DESC').page(params[:page])
+            access_denied; return
           end
         elsif @user
           if @user == current_user
             @answers = @user.answers.order('answers.id DESC').page(params[:page])
           else
-            @answers = @user.answers.public_answers.order('answers.id DESC').page(params[:page])
+            access_denied; return
           end
         else
-          @answers = Answer.public_answers.order('answers.id DESC').page(params[:page])
+          access_denied; return
         end
       end
     else
       if @question
-        @answers = @question.answers.public_answers.order('answers.id DESC').page(params[:page])
+        @answers = @question.answers.order('answers.id DESC').page(params[:page])
       else
-        @answers = Answer.public_answers.order('answers.id DESC').page(params[:page])
+        access_denied; return
       end
     end
     @count[:query_result] = @answers.size
