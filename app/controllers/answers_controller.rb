@@ -16,8 +16,13 @@ class AnswersController < ApplicationController
           access_denied; return
         end
       end
-      if @user and @user != current_user
-        access_denied; return
+      if @user
+        if @user == current_user
+          redirect_to answers_url(:format => params[:format])
+          return
+        else
+          access_denied; return
+        end
       end
     end
 
