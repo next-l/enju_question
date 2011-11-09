@@ -32,7 +32,7 @@
 </p>
 
 <ul>
-  <%- @question.answers.public_answers.each do |answer| -%>
+  <%- @question.answers.each do |answer| -%>
     <li><%= link_to answer.user.username, answer.user -%>
     (<%=l answer.updated_at %>)<br />
     <%= raw auto_link(textilize(h(answer.body))) -%><br />
