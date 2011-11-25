@@ -1,5 +1,6 @@
 <%= simple_form_for(@answer, :validate => true) do |f| %>
   <%= f.error_notification %>
+  <%= f.hidden_field :question_id %>
 
   <div class="field">
     <%= f.label t('activerecord.models.user') %><br />
