@@ -2,8 +2,8 @@
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.question')) -%></h1>
 <div id="content_list">
 
-<%= form_for(@question) do |f| -%>
-  <%= f.error_messages -%>
+<%= form_for(@question, :validate => true) do |f| -%>
+  <%= f.error_notification -%>
 
   <div class="field">
     <%= f.label t('activerecord.models.user') -%><br />
