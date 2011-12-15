@@ -6,7 +6,7 @@ class Question < ActiveRecord::Base
   scope :private_questions, where(:shared => false)
   scope :solved, where(:solved => true)
   scope :unsolved, where(:solved => false)
-  belongs_to :user, :counter_cache => true, :validate => true
+  belongs_to :user, :validate => true
   has_many :answers, :dependent => :destroy
 
   validates_associated :user
