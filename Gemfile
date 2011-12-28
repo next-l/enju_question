@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 # Declare your gem's dependencies in enju_question.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
@@ -13,6 +13,7 @@ gem "jquery-rails"
 # your gemspec. These might include edge Rails or gems from your path or
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
+gem 'sunspot-rails-tester'
 gem 'factory_girl_rails', '~> 1.4'
 gem 'vcr', '~> 2.0.0.rc1'
 gem 'fakeweb'

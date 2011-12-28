@@ -4,6 +4,7 @@ require 'will_paginate'
 require 'sunspot_rails'
 require 'nokogiri'
 require 'acts-as-taggable-on'
+require 'nokogiri'
 require 'enju_ndl'
 
 module EnjuQuestion
