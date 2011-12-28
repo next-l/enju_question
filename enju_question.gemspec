@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
   s.add_dependency "devise"
   s.add_dependency "cancan"
   s.add_dependency "acts-as-taggable-on", "~> 2.2"
-  s.add_dependency "enju_ndl", "0.0.3"
   s.add_dependency "friendly_id", "~> 4.0"
   s.add_dependency "nokogiri"
   s.add_dependency "will_paginate", "~> 3.0"
