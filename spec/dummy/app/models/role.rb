@@ -1,8 +1,5 @@
 class Role < ActiveRecord::Base
-  extend FriendlyId
-  friendly_id :name
-
   def self.default_role
-    Role.find('Guest')
+    Role.where(:name => 'Guest').first
   end
 end
