@@ -26,9 +26,13 @@ Gem::Specification.new do |s|
   s.add_dependency "friendly_id", "~> 4.0"
   s.add_dependency "nokogiri"
   s.add_dependency "will_paginate", "~> 3.0"
-  s.add_dependency "jpmobile", "2.0.4"
+  s.add_dependency "jpmobile", "~> 2.0"
   s.add_dependency "enju_ndl", ">= 0.0.3"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
+  s.add_development_dependency "sunspot-rails-tester"
+  s.add_development_dependency "factory_girl_rails", "~> 1.4"
+  s.add_development_dependency "vcr", "~> 2.0.0.rc1"
+  s.add_development_dependency "fakeweb"
 end
