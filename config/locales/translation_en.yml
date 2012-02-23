@@ -1,0 +1,46 @@
+ja:
+  activerecord:
+    models:
+      question: Question
+      answer: Answer
+    attributes:
+      question:
+        body: Body
+        share_question: Share question
+        deleted_at: Deleted at
+        shared: Shared
+        solved: Solved
+        answers_count: Answers count
+      answer:
+        body: Body
+        deleted_at: Deleted at
+        shared: Shared
+        item_identifier_list: Item identifier list
+        url_list: Url list
+      user:
+        answer_rss_token: Answer rss token
+
+  question:
+    my: "My questions"
+    all: "All questions"
+    number_of_search_results:
+      one: "1 record found."
+      other: "%{count} records found."
+    user_question: "%{login_name}'s questions"
+    no_record_found: "No records found."
+    library_group_question: "Questions in %{library_group_name}"
+    answer_question: "Answer this question"
+    crd: "NDL Collaborative Reference Database"
+    you_can_search_crd: "You can search within NDL Collaborative Reference Database."
+    created_at: "Question created at"
+    updated_at: "Question updated at"
+    last_answered_at: "Last answered at"
+    solved: "Solved"
+    not_solved: "Not solved"
+  answer:
+    user_answer: "%{login_name}'s answers"
+    library_group_answer: "Answers from %{library_group_name}"
+    specify_question: "Specify the question."
+    count: "Count"
+  manifestation:
+    question: "Question"

@@ -1,0 +1,44 @@
+ja:
+  activerecord:
+    models:
+      question: 質問（レファレンス）
+      answer: 回答
+
+    attributes:
+      question:
+        body: 本文
+        deleted_at: 削除時刻
+        shared: 質問を公開する
+        solved: 解決済み
+        answers_count: 回答件数
+      answer:
+        body: 本文
+        deleted_at: 削除時刻
+        shared: 回答を公開する
+        item_identifier_list: 所蔵情報IDリスト
+        url_list: URLリスト
+      user:
+        answer_rss_token: 回答用RSSのトークン
+
+  question:
+    my: "自分の質問"
+    all: "全ての質問"
+    number_of_search_results: "%{count} 件の資料が見つかりました。"
+    user_question: "%{login_name} さんの質問"
+    no_record_found: "事例が見つかりませんでした。"
+    library_group_question: "%{library_group_name} での質問"
+    answer_question: "この質問に答える"
+    crd: "国会図書館レファレンス協同データベース"
+    you_can_search_crd: "国立国会図書館のレファレンス協同データベースを検索することができます。"
+    created_at: "質問の作成時刻"
+    updated_at: "質問の更新時刻"
+    last_answered_at: "最新の回答時刻"
+    solved: "解決済み"
+    not_solved: "未解決"
+  answer:
+    user_answer: "%{login_name} さんの寄せた回答"
+    library_group_answer: "%{library_group_name} の寄せた回答"
+    specify_question: "質問を指定してください。"
+    count: "回答件数"
+  manifestation:
+    question: "この資料で調べた質問"
