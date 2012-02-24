@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "friendly_id", "~> 4.0"
   s.add_dependency "nokogiri"
   s.add_dependency "will_paginate", "~> 3.0"
+  s.add_dependency "acts_as_list", "~> 0.1.5"
   s.add_dependency "enju_ndl", ">= 0.0.11"
 
   s.add_development_dependency "sqlite3"
