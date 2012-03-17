@@ -85,7 +85,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.json { render :json => @questions.to_json }
+      format.json { render :json => @questions }
       format.xml {
         if params[:mode] == 'crd'
           render :template => 'questions/index_crd'
@@ -105,13 +105,13 @@ class QuestionsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.rhtml
-      format.json { render :json => @answer.to_json }
+      format.json { render :json => @question }
       format.xml {
         if params[:mode] == 'crd'
           render :template => 'questions/show_crd'
           convert_charset
         else
-          render :json => @question.to_xml
+          render :xml => @question
         end
       }
     end
@@ -122,7 +122,7 @@ class QuestionsController < ApplicationController
     @question = current_user.questions.new
   end
 
-  # GET /questions/1;edit
+  # GET /questions/1/edit
   def edit
   end
 
@@ -135,10 +135,10 @@ class QuestionsController < ApplicationController
       if @question.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.question'))
         format.html { redirect_to @question }
-        format.json { render :json => @question, :status => :created, :location => question_url(@question) }
+        format.json { render :json => @question, :status => :created, :location => @question }
       else
         format.html { render :action => "new" }
-        format.json { render :json => @question.errors.to_json }
+        format.json { render :json => @question.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -150,10 +150,10 @@ class QuestionsController < ApplicationController
       if @question.update_attributes(params[:question])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.question'))
         format.html { redirect_to @question }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.json { render :json => @question.errors.to_json }
+        format.json { render :json => @question.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -165,7 +165,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to user_questions_url(@question.user) }
-      format.json { head :ok }
+      format.json { head :no_content }
     end
   end
 end

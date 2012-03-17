@@ -85,7 +85,7 @@ class AnswersController < ApplicationController
     end
   end
 
-  # GET /answers/1;edit
+  # GET /answers/1/edit
   def edit
   end
 
@@ -101,12 +101,12 @@ class AnswersController < ApplicationController
     respond_to do |format|
       if @answer.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.answer'))
-        format.html { redirect_to(@answer) }
+        format.html { redirect_to @answer }
         format.json { render :json => @answer, :status => :created, :location => answer_url(@answer) }
         format.mobile { redirect_to question_url(@answer.question) }
       else
         format.html { render :action => "new" }
-        format.json { render :json => @answer.errors.to_json }
+        format.json { render :json => @answer.errors, :status => :unprocessable_entity }
         format.mobile { render :action => "new" }
       end
     end
@@ -118,11 +118,11 @@ class AnswersController < ApplicationController
     respond_to do |format|
       if @answer.update_attributes(params[:answer])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.answer'))
-        format.html { redirect_to(@answer) }
-        format.json { head :ok }
+        format.html { redirect_to @answer }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.json { render :json => @answer.errors.to_json }
+        format.json { render :json => @answer.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -134,7 +134,7 @@ class AnswersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to question_answers_url(@answer.question) }
-      format.json { head :ok }
+      format.json { head :no_content }
     end
   end
 end
