@@ -6,7 +6,7 @@ class QuestionSweeper < ActionController::Caching::Sweeper
     case record.to_s.to_sym
     when :Answer
       record.items.each do |item|
-        expire_editable_fragment(item.manifestation, ['detail'])
+        expire_editable_fragment(item.manifestation)
       end
     end
   end
