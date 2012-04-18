@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111201163718) do
+ActiveRecord::Schema.define(:version => 20120418124018) do
 
   create_table "answer_has_items", :force => true do |t|
     t.integer  "answer_id"
     t.integer  "item_id"
     t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "answer_has_items", ["answer_id"], :name => "index_answer_has_items_on_answer_id"
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.integer  "user_id",                                :null => false
     t.integer  "question_id",                            :null => false
     t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.datetime "deleted_at"
     t.boolean  "shared",               :default => true, :null => false
     t.string   "state"
@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.string   "item_identifier"
     t.integer  "circulation_status_id",       :default => 5,     :null => false
     t.integer  "checkout_type_id",            :default => 1,     :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
     t.datetime "deleted_at"
     t.integer  "shelf_id",                    :default => 1,     :null => false
     t.integer  "basket_id"
@@ -78,8 +78,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.string   "iso_639_3"
     t.text     "note"
     t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "questions", :force => true do |t|
@@ -91,8 +91,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.string   "state"
     t.boolean  "solved",        :default => false, :null => false
     t.text     "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   add_index "questions", ["user_id"], :name => "index_questions_on_user_id"
@@ -102,8 +102,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.text     "display_name"
     t.text     "note"
     t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "taggings", :force => true do |t|
@@ -122,8 +122,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
   create_table "tags", :force => true do |t|
     t.string   "name"
     t.string   "name_transcription"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "user_groups", :force => true do |t|
@@ -131,15 +131,15 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.text     "display_name"
     t.text     "note"
     t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "user_has_roles", :force => true do |t|
     t.integer  "user_id"
     t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -148,8 +148,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.string   "username"
     t.text     "note"
     t.string   "locale"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
     t.string   "email",                                 :default => "", :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
     t.string   "reset_password_token"
@@ -160,8 +160,10 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "answer_feed_token"
   end
 
+  add_index "users", ["answer_feed_token"], :name => "index_users_on_answer_feed_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
