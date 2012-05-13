@@ -84,7 +84,7 @@ class QuestionsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.rhtml
+      format.html # index.html.erb
       format.json { render :json => @questions }
       format.xml {
         if params[:mode] == 'crd'
@@ -104,7 +104,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1.json
   def show
     respond_to do |format|
-      format.html # show.rhtml
+      format.html # show.html.erb
       format.json { render :json => @question }
       format.xml {
         if params[:mode] == 'crd'

@@ -58,7 +58,7 @@ class AnswersController < ApplicationController
     @count[:query_result] = @answers.size
 
     respond_to do |format|
-      format.html # index.rhtml
+      format.html # index.html.erb
       format.json { render :json => @answers.to_json }
       format.rss  { render :layout => false }
       format.atom
@@ -69,7 +69,7 @@ class AnswersController < ApplicationController
   # GET /answers/1.json
   def show
     respond_to do |format|
-      format.html # show.rhtml
+      format.html # show.html.erb
       format.json { render :json => @answer.to_json }
     end
   end
