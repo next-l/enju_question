@@ -1,3 +1,4 @@
+<div id="crd">
 <%- if user_signed_in? -%>
   <ul>
   <%- if current_user.has_role?('Librarian') -%>
@@ -22,3 +23,4 @@
 <%- else -%>
   <p><%= link_to t('question.you_can_search_crd'), "http://crd.ndl.go.jp/" -%></p>
 <%- end -%>
+</div>
