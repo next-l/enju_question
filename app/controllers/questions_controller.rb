@@ -91,7 +91,7 @@ class QuestionsController < ApplicationController
           render :template => 'questions/index_crd'
           convert_charset
         else
-          render :xml => @questions.to_xml
+          render :xml => @questions
         end
       }
       format.rss  { render :layout => false }
