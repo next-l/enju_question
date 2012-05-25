@@ -4,17 +4,17 @@
   <%- if params[:sort_by].blank? -%>
     <strong><%= t('question.last_answered_at') -%></strong>
   <%- else -%>
-    <%= link_to t('question.last_answered_at'), params.merge(:sort_by => nil) -%>
+    <%= link_to t('question.last_answered_at'), url_for(params.merge(:sort_by => nil, :only_path => true)) -%>
   <%- end -%>
   <%- if params[:sort_by] == 'created_at' -%>
     <strong><%= t('question.created_at') -%></strong>
   <%- else -%>
-    <%= link_to t('question.created_at'), params.merge(:sort_by => 'created_at') -%>
+    <%= link_to t('question.created_at'), url_for(params.merge(:sort_by => 'created_at', :only_path => true)) -%>
   <%- end -%>
   <%- if params[:sort_by] == 'answers_count' -%>
     <strong><%= t('activerecord.attributes.question.answers_count') -%></strong>
   <%- else -%>
-    <%= link_to t('activerecord.attributes.question.answers_count'), params.merge(:sort_by => 'answers_count') -%>
+    <%= link_to t('activerecord.attributes.question.answers_count'), url_for(params.merge(:sort_by => 'answers_count', :only_path => true) -%>
   <%- end -%>
 </p>
 
