@@ -14,7 +14,7 @@
   <%- if params[:sort_by] == 'answers_count' -%>
     <strong><%= t('activerecord.attributes.question.answers_count') -%></strong>
   <%- else -%>
-    <%= link_to t('activerecord.attributes.question.answers_count'), url_for(params.merge(:sort_by => 'answers_count', :only_path => true) -%>
+    <%= link_to t('activerecord.attributes.question.answers_count'), url_for(params.merge(:sort_by => 'answers_count', :only_path => true)) -%>
   <%- end -%>
 </p>
 
