@@ -9,6 +9,6 @@ require 'enju_ndl'
 require 'acts_as_list'
 
 module EnjuQuestion
-  class Engine < Rails::Engine
+  class Engine < ::Rails::Engine
   end
 end

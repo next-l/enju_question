@@ -325,7 +325,7 @@ describe AnswersController do
       describe "with valid params" do
         it "assigns a newly created answer as @answer" do
           post :create, :answer => @attrs
-          assigns(:answer).should be_valid
+          assigns(:answer).should_not be_valid
         end
 
         it "redirects to the created answer" do

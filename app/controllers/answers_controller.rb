@@ -92,7 +92,8 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
-    @answer = current_user.answers.new(params[:answer])
+    @answer = Answer.new(params[:answer])
+    @answer.user = current_user
     unless @answer.question
       redirect_to questions_url
       return
