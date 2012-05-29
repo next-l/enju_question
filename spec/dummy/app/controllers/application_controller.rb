@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_locale
 
+  enju_question
+
   private
   def render_403
     return if performed?
@@ -66,11 +68,6 @@ class ApplicationController < ActionController::Base
 
   def get_user
     @user = User.where(:username => params[:user_id]).first if params[:user_id]
-  end
-
-  def get_question
-    @question = Question.find(params[:question_id]) if params[:question_id]
-    authorize! :show, @question if @question
   end
 
   def convert_charset

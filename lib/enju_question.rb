@@ -7,7 +7,7 @@ module EnjuQuestion
 
   module ClassMethods
     def enju_question
-      include EnjuLibrary::InstanceMethods
+      include EnjuQuestion::InstanceMethods
     end
   end
 
@@ -22,4 +22,3 @@ module EnjuQuestion
 end
 
 ActionController::Base.send(:include, EnjuQuestion)
-
