@@ -12,6 +12,8 @@ module EnjuQuestion
   end
 
   module InstanceMethods
+    private
+
     def get_question
       @question = Question.find(params[:question_id]) if params[:question_id]
       authorize! :show, @question if @question
