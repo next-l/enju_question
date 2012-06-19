@@ -43,4 +43,5 @@ module Dummy
   end
 end
 
-require 'expire_editable_fragment'
+require 'enju_biblio'
+require 'enju_manifestation_viewer'
