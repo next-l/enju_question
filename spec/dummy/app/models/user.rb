@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
   has_one :role, :through => :user_has_role
   belongs_to :user_group
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id'
-  has_many :questions
-  has_many :answers
+
+  enju_question_user
 
   def has_role?(role_in_question)
     return false unless role
