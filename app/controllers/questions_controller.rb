@@ -70,7 +70,7 @@ class QuestionsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(page.to_i, Question.per_page)
+    search.query.paginate(page.to_i, Question.default_per_page)
     result = search.execute!
     @questions = result.results
     @count[:query_result] = @questions.total_entries
@@ -79,7 +79,7 @@ class QuestionsController < ApplicationController
       begin
         @crd_results = Question.search_crd(:query_01 => query, :page => params[:crd_page])
       rescue Timeout::Error
-        @crd_results = WillPaginate::Collection.create(1,1,0) do end
+        @crd_results = Kaminari::paginate_array([]).page(1)
       end
     end
 

@@ -8,7 +8,7 @@ describe Question do
   it "test_should_get_crd_search" do
     result = Question.search_crd(:query_01 => 'Yahoo')
     result.should be_true
-    result.total_entries.should > 0
+    result.total_count.should > 0
   end
 
   it "should respond to last_updated_at" do
