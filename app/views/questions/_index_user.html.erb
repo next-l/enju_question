@@ -14,5 +14,8 @@
 
 <div id="submenu" class="ui-corner-all">
   <%= render 'solved_facet' -%>
+  <ul>
+    <li><%= link_to t('question.all'), questions_path -%></li>
+  </ul>
   <%= render 'crd' -%>
 </div>
