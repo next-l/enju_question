@@ -77,7 +77,7 @@ class QuestionsController < ApplicationController
 
     if query.present?
       begin
-        @crd_results = Question.search_crd(:query_01 => query, :page => params[:crd_page])
+        @crd_results = Question.search_crd(:query_01 => query, :page => params[:crd_page]).per(5)
       rescue Timeout::Error
         @crd_results = Kaminari::paginate_array([]).page(1)
       end
