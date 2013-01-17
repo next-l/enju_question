@@ -1,4 +1,4 @@
-xml.instruct! :xml, :version=>"1.0" , :encoding => 'Shift_JIS'
+xml.instruct! :xml, :version=>"1.0" , :encoding => 'UTF-8'
 xml.CRD('version' => "1.0"){
   @questions.each do |question|
     xml.REFERENCE{
