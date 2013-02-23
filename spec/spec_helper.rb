@@ -41,9 +41,11 @@ RSpec.configure do |config|
     Sunspot.session = $original_sunspot_session
     Sunspot.remove_all!
   end
-
-  config.extend VCR::RSpec::Macros
 end
 
 FactoryGirl.definition_file_paths << "#{::Rails.root}/../../spec/factories"
 FactoryGirl.find_definitions
+
+VCR.configure do |c|
+  c.allow_http_connections_when_no_cassette = true
+end

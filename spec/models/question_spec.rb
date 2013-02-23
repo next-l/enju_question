@@ -3,16 +3,17 @@ require 'spec_helper'
 
 describe Question do
   fixtures :questions
-  use_vcr_cassette "enju_ndl/crd", :record => :new_episodes
+  VCR.use_cassette "enju_ndl/crd", :record => :new_episodes do
 
-  it "test_should_get_crd_search" do
-    result = Question.search_crd(:query_01 => 'Yahoo')
-    result.should be_true
-    result.total_count.should > 0
-  end
+    it "test_should_get_crd_search" do
+      result = Question.search_crd(:query_01 => 'Yahoo')
+      result.should be_true
+      result.total_count.should > 0
+    end
 
-  it "should respond to last_updated_at" do
-    questions(:question_00001).last_updated_at
+    it "should respond to last_updated_at" do
+      questions(:question_00001).last_updated_at
+    end
   end
 end
 
