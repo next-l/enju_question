@@ -1,6 +1,7 @@
 require "enju_question/engine"
 require "enju_question/user"
 require "enju_question/manifestation"
+require "enju_question/item"
 
 module EnjuQuestion
   def self.included(base)
@@ -26,3 +27,4 @@ end
 ActionController::Base.send(:include, EnjuQuestion)
 ActiveRecord::Base.send :include, EnjuQuestion::QuestionUser
 ActiveRecord::Base.send :include, EnjuQuestion::QuestionManifestation
+ActiveRecord::Base.send :include, EnjuQuestion::QuestionItem
