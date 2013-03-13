@@ -19,11 +19,11 @@ module EnjuQuestion
             true
           end
         end
-        can [:update, :destroy], Answer do |answer|
+        can [:update, :destroy, :delete], Answer do |answer|
           answer.user == user
         end
         can [:index, :create], Question
-        can [:update, :destroy], Question do |question|
+        can [:update, :destroy, :delete], Question do |question|
           question.user == user
         end
         can :show, Question do |question|

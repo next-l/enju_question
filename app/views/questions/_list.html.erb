@@ -53,7 +53,7 @@
         <%- if can? :update, question -%>
           <%= link_to image_tag('icons/page_white_edit.png', :alt => t('page.edit'), :size => '16x16'), edit_question_path(question) -%>
         <% end %>
-        <%- if can? :destroy, question -%>
+        <%- if can? :delete, question -%>
           <%= link_to image_tag('icons/delete.png', :alt => t('page.destroy'), :size => '16x16'), question, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
         <%- end -%>
       </td>
