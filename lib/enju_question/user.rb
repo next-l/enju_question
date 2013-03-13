@@ -5,7 +5,7 @@ module EnjuQuestion
     end
 
     module ClassMethods
-      def enju_question_user
+      def enju_question_user_model
         include InstanceMethods
         has_many :questions
         has_many :answers
