@@ -5,7 +5,7 @@ describe Question do
   fixtures :questions
   VCR.use_cassette "enju_ndl/crd", :record => :new_episodes do
 
-    it "test_should_get_crd_search" do
+    it "test_should_get_crd_search", :vcr => true do
       result = Question.search_crd(:query_01 => 'Yahoo')
       result.should be_true
       result.total_count.should > 0

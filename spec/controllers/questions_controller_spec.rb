@@ -65,25 +65,22 @@ describe QuestionsController do
     end
 
     describe "When not logged in" do
-      VCR.use_cassette "enju_ndl/crd", :record => :new_episodes do
+      it "assigns all questions as @questions" do
+        get :index
+        assigns(:questions).should_not be_nil
+      end
 
-        it "assigns all questions as @questions" do
-          get :index
-          assigns(:questions).should_not be_nil
-        end
+      it "should get index with query", :vcr => true do
+        get :index, :query => 'Yahoo'
+        response.should be_success
+        assigns(:questions).should_not be_nil
+        assigns(:crd_results).should_not be_nil
+      end
 
-        it "should get index with query" do
-          get :index, :query => 'Yahoo'
-          response.should be_success
-          assigns(:questions).should_not be_nil
-          assigns(:crd_results).should_not be_nil
-        end
-
-        it "should render crd_xml template" do
-          get :index, :query => 'Yahoo', :mode => 'crd', :format => :xml
-          response.should be_success
-          response.should render_template("questions/index_crd")
-        end
+      it "should render crd_xml template", :vcr => true do
+        get :index, :query => 'Yahoo', :mode => 'crd', :format => :xml
+        response.should be_success
+        response.should render_template("questions/index_crd")
       end
     end
   end
