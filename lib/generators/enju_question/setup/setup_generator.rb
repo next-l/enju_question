@@ -7,5 +7,7 @@ class EnjuQuestion::SetupGenerator < Rails::Generators::Base
       "  enju_question_user_model\n", :after => "enju_leaf_user_model\n"
     inject_into_class 'app/models/manifestation.rb', Manifestation,
       "  enju_question_manifestation_model\n"
+    inject_into_class 'app/models/item.rb', Item,
+      "  enju_question_item_model\n"
   end
 end
