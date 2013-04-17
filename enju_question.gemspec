@@ -31,4 +31,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "sunspot_solr", "~> 2.0.0"
   s.add_development_dependency "mobylette"
   s.add_development_dependency "fakeweb"
+  s.add_development_dependency "sunspot-rails-tester"
 end
