@@ -122,8 +122,10 @@ describe QuestionsController do
       end
 
       it "should not show missing question" do
-        get :show, :id => 'missing'
-        response.should be_missing
+        lambda{
+          get :show, :id => 'missing'
+        }.should raise_error(ActiveRecord::RecordNotFound)
+        #response.should be_missing
       end
 
       it "should show my question" do
@@ -227,8 +229,10 @@ describe QuestionsController do
       end
 
       it "should not edit missing question" do
-        get :edit, :id => 'missing'
-        response.should be_missing
+        lambda{
+          get :edit, :id => 'missing'
+        }.should raise_error(ActiveRecord::RecordNotFound)
+        #response.should be_missing
       end
   
       it "should edit my question" do
@@ -401,8 +405,10 @@ describe QuestionsController do
       end
 
       it "should not update missing question" do
-        put :update, :id => 'missing', :question => { }
-        response.should be_missing
+        lambda{
+          put :update, :id => 'missing', :question => { }
+        }.should raise_error(ActiveRecord::RecordNotFound)
+        #response.should be_missing
       end
     end
 
@@ -506,8 +512,10 @@ describe QuestionsController do
       end
 
       it "should not destroy missing question" do
-        delete :destroy, :id => 'missing'
-        response.should be_missing
+        lambda{
+          delete :destroy, :id => 'missing'
+        }.should raise_error(ActiveRecord::RecordNotFound)
+        #response.should be_missing
       end
     end
 

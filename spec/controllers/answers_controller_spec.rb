@@ -145,8 +145,10 @@ describe AnswersController do
       end
 
       it "should not show missing answer" do
-        get :show, :id => 'missing', :user_id => users(:user1).username, :question_id => 1
-        response.should be_missing
+        lambda{
+          get :show, :id => 'missing', :user_id => users(:user1).username, :question_id => 1
+        }.should raise_error(ActiveRecord::RecordNotFound)
+        #response.should be_missing
       end
 
       it "should not show answer with other user's user_id" do
@@ -270,8 +272,10 @@ describe AnswersController do
       end
   
       it "should not edit missing answer" do
-        get :edit, :id => 100, :user_id => users(:user1).username, :question_id => 1
-        response.should be_missing
+        lambda{
+          get :edit, :id => 100, :user_id => users(:user1).username, :question_id => 1
+        }.should raise_error(ActiveRecord::RecordNotFound)
+        #response.should be_missing
       end
 
       it "should edit my answer" do
@@ -431,8 +435,10 @@ describe AnswersController do
       end
 
       it "should not update missing answer" do
-        put :update, :id => 'missing', :answer => { }, :user_id => users(:user1).username
-        response.should be_missing
+        lambda{
+          put :update, :id => 'missing', :answer => { }, :user_id => users(:user1).username
+        }.should raise_error(ActiveRecord::RecordNotFound)
+        #response.should be_missing
       end
   
       it "should not update other user's answer" do

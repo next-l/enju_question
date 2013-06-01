@@ -196,6 +196,24 @@ ActiveRecord::Schema.define(:version => 20120602141129) do
   add_index "languages", ["iso_639_3"], :name => "index_languages_on_iso_639_3"
   add_index "languages", ["name"], :name => "index_languages_on_name", :unique => true
 
+  create_table "library_groups", :force => true do |t|
+    t.string   "name",                                                 :null => false
+    t.text     "display_name"
+    t.string   "short_name",                                           :null => false
+    t.string   "email"
+    t.text     "my_networks"
+    t.text     "login_banner"
+    t.text     "note"
+    t.integer  "country_id"
+    t.integer  "position"
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
+    t.text     "admin_networks"
+    t.string   "url",            :default => "http://localhost:3000/"
+  end
+
+  add_index "library_groups", ["short_name"], :name => "index_library_groups_on_short_name"
+
   create_table "licenses", :force => true do |t|
     t.string   "name",         :null => false
     t.string   "display_name"
