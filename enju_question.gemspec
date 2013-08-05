@@ -21,8 +21,6 @@ Gem::Specification.new do |s|
   #s.add_dependency "simple_form"
   s.add_dependency "acts-as-taggable-on", "~> 2.4"
   s.add_dependency "rails_autolink"
-  s.add_dependency "protected_attributes"
-  s.add_dependency "rails-observers"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
