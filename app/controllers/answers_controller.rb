@@ -2,9 +2,9 @@
 class AnswersController < ApplicationController
   load_and_authorize_resource :except => :index
   authorize_resource :only => :index
-  before_filter :store_location, :only => [:index, :show, :new, :edit]
-  before_filter :get_user, :except => [:edit]
-  before_filter :get_question
+  before_action :store_location, :only => [:index, :show, :new, :edit]
+  before_action :get_user, :except => [:edit]
+  before_action :get_question
   cache_sweeper :question_sweeper, :only => [:create, :update, :destroy]
 
   # GET /answers
