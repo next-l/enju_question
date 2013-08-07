@@ -22,7 +22,6 @@ gem "simple_form", github: "plataformatec/simple_form"
 gem "sunspot_rails", github: "sunspot/sunspot"
 gem "sunspot_solr", github: "sunspot/sunspot"
 gem "paper_trail", github: "airblade/paper_trail", branch: "rails4"
-gem "acts_as_list", github: "swanandp/acts_as_list"
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
