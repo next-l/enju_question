@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "vcr", "~> 2.5"
   #s.add_development_dependency "enju_leaf", "~> 1.1.0.rc5"
   #s.add_development_dependency "enju_ndl", "~> 0.1.0.pre26"
-  #s.add_development_dependency "sunspot_solr", "~> 2.0.0"
+  s.add_development_dependency "sunspot_solr", "~> 2.1"
   s.add_development_dependency "fakeweb"
   s.add_development_dependency "sunspot-rails-tester"
 end
