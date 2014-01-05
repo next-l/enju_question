@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.0"
   s.add_dependency "enju_core", "~> 0.2.0.pre1"
   #s.add_dependency "simple_form"
-  s.add_dependency "acts-as-taggable-on", "~> 2.4"
+  s.add_dependency "acts-as-taggable-on", "~> 3.0"
   s.add_dependency "rails_autolink"
 
   s.add_development_dependency "sqlite3"
