@@ -1,4 +1,4 @@
-require 'enju_core'
+require 'enju_seed'
 require 'acts-as-taggable-on'
 require 'enju_ndl'
 require 'protected_attributes'

@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "enju_question"
   s.version     = EnjuQuestion::VERSION
   s.authors     = ["Kosuke Tanabe"]
-  s.email       = ["tanabe@mwr.mediacom.keio.ac.jp"]
+  s.email       = ["kosuke@e23.jp"]
   s.homepage    = "https://github.com/next-l/enju_question"
   s.summary     = "enju_queestion plugin"
   s.description = "Question and answer management for Next-L Enju"
@@ -17,8 +17,8 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids}/*"]
 
   s.add_dependency "rails", "~> 4.0"
-  s.add_dependency "enju_core", "~> 0.2.0.pre1"
-  #s.add_dependency "simple_form"
+  #s.add_dependency "enju_seed", "~> 0.2.0.pre1"
+  s.add_dependency "simple_form"
   s.add_dependency "acts-as-taggable-on", "~> 3.0"
   s.add_dependency "rails_autolink"
 
