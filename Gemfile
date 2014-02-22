@@ -17,6 +17,7 @@ gem "enju_biblio", github: "next-l/enju_biblio", branch: "rails4"
 gem "enju_library", github: "next-l/enju_library", branch: "rails4"
 gem "enju_ndl", github: "next-l/enju_ndl", branch: "rails4"
 gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer", branch: "rails4"
+gem "protected_attributes", github: "rails/protected_attributes"
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

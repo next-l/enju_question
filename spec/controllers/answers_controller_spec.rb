@@ -79,9 +79,7 @@ describe AnswersController do
       end
 
       it "should not get other user's index feed if question is not shared" do
-        #lambda{
-          get :index, :question_id => 2, :format => 'rss'
-        #}.should raise_error(ActionController::UnknownFormat)
+        get :index, :question_id => 2, :format => 'rss'
         response.should redirect_to new_user_session_url
       end
 
