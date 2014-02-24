@@ -103,11 +103,9 @@ class AnswersController < ApplicationController
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.answer'))
         format.html { redirect_to @answer }
         format.json { render :json => @answer, :status => :created, :location => answer_url(@answer) }
-        format.mobile { redirect_to question_url(@answer.question) }
       else
         format.html { render :action => "new" }
         format.json { render :json => @answer.errors, :status => :unprocessable_entity }
-        format.mobile { render :action => "new" }
       end
     end
   end
