@@ -307,7 +307,7 @@ describe AnswersController do
     describe "When logged in as User" do
       login_fixture_user
 
-      it "should create answer sithout user_id" do
+      it "should create answer without user_id" do
         post :create, :answer => {:question_id => 1, :body => 'hoge'}
         response.should redirect_to answer_url(assigns(:answer))
       end

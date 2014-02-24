@@ -2,6 +2,7 @@ require "enju_question/engine"
 require "enju_question/user"
 require "enju_question/manifestation"
 require "enju_question/item"
+require "timeout"
 
 module EnjuQuestion
   def self.included(base)

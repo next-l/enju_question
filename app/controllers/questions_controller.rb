@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
 class QuestionsController < ApplicationController
   before_action :store_location, :only => [:index, :show, :new, :edit]
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:index, :create]
+  authorize_resource only: [:index, :create]
   before_action :get_user, :except => [:edit]
   after_action :solr_commit, :only => [:create, :update, :destroy]
 
@@ -129,7 +130,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(params[:question])
+    @question = Question.new(question_params)
     @question.user = current_user
 
     respond_to do |format|
@@ -148,7 +149,7 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.json
   def update
     respond_to do |format|
-      if @question.update_attributes(params[:question])
+      if @question.update_attributes(question_params)
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.question'))
         format.html { redirect_to @question }
         format.json { head :no_content }
@@ -168,5 +169,12 @@ class QuestionsController < ApplicationController
       format.html { redirect_to user_questions_url(@question.user) }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def question_params
+    params.require(:question).permit(
+      :body, :shared, :solved, :note
+    )
   end
 end

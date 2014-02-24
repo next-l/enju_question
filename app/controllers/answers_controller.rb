@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 class AnswersController < ApplicationController
-  load_and_authorize_resource :except => :index
-  authorize_resource :only => :index
+  load_and_authorize_resource :except => [:index, :create]
+  authorize_resource :only => [:index, :create]
   before_action :store_location, :only => [:index, :show, :new, :edit]
   before_action :get_user, :except => [:edit]
   before_action :get_question
@@ -91,7 +91,7 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
-    @answer = Answer.new(params[:answer])
+    @answer = Answer.new(answer_params)
     @answer.user = current_user
     unless @answer.question
       redirect_to questions_url
@@ -116,7 +116,7 @@ class AnswersController < ApplicationController
   # PUT /answers/1.json
   def update
     respond_to do |format|
-      if @answer.update_attributes(params[:answer])
+      if @answer.update_attributes(answer_params)
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.answer'))
         format.html { redirect_to @answer }
         format.json { head :no_content }
@@ -136,5 +136,12 @@ class AnswersController < ApplicationController
       format.html { redirect_to question_answers_url(@answer.question) }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def answer_params
+    params.require(:answer).permit(
+      :question_id, :body, :item_identifier_list, :url_list
+    )
   end
 end
