@@ -1,10 +1,11 @@
 # -*- encoding: utf-8 -*-
 class AnswersController < ApplicationController
-  load_and_authorize_resource :except => [:index, :create]
-  authorize_resource :only => [:index, :create]
+  before_action :set_answer, only: [:show, :edit, :update, :destroy]
   before_action :store_location, :only => [:index, :show, :new, :edit]
   before_action :get_user, :except => [:edit]
   before_action :get_question
+  after_action :verify_authorized
+  after_action :verify_policy_scoped, :only => :index
 
   # GET /answers
   # GET /answers.json
@@ -91,6 +92,7 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
+    authorize Answer
     @answer = Answer.new(answer_params)
     @answer.user = current_user
     unless @answer.question
@@ -137,6 +139,11 @@ class AnswersController < ApplicationController
   end
 
   private
+  def set_answer
+    @answer = Answer.find(params[:id])
+    authorize @answer
+  end
+
   def answer_params
     params.require(:answer).permit(
       :question_id, :body, :item_identifier_list, :url_list

@@ -1,9 +1,10 @@
 # -*- encoding: utf-8 -*-
 class QuestionsController < ApplicationController
+  before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_action :store_location, :only => [:index, :show, :new, :edit]
-  load_and_authorize_resource except: [:index, :create]
-  authorize_resource only: [:index, :create]
   before_action :get_user, :except => [:edit]
+  after_action :verify_authorized
+  after_action :verify_policy_scoped, :only => :index
   after_action :solr_commit, :only => [:create, :update, :destroy]
 
   # GET /questions
@@ -130,6 +131,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
+    authorize Question
     @question = Question.new(question_params)
     @question.user = current_user
 
@@ -172,6 +174,11 @@ class QuestionsController < ApplicationController
   end
 
   private
+  def set_question
+    @question = Question.find(params[:id])
+    authorize @question
+  end
+
   def question_params
     params.require(:question).permit(
       :body, :shared, :solved, :note
