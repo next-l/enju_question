@@ -76,6 +76,7 @@ class AnswersController < ApplicationController
 
   # GET /answers/new
   def new
+    authorize Answer
     if @question
       @answer = current_user.answers.new
       @answer.question = @question

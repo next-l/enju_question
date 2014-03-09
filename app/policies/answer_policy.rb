@@ -8,10 +8,18 @@ class AnswerPolicy < AdminPolicy
   end
 
   def update?
-    user.try(:has_role?, 'Librarian')
+    if user.try(:has_role?, 'Librarian')
+      true
+    else
+      true if user and user == record.user
+    end
   end
 
   def destroy?
-    user.try(:has_role?, 'Librarian')
+    if user.try(:has_role?, 'Librarian')
+      true
+    else
+      true if user and user == record.user
+    end
   end
 end
