@@ -121,7 +121,9 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @question = current_user.questions.new
+    @question = Question.new
+    authorize @question
+    @question.user = current_user
   end
 
   # GET /questions/1/edit
@@ -131,8 +133,8 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    authorize Question
     @question = Question.new(question_params)
+    authorize @question
     @question.user = current_user
 
     respond_to do |format|

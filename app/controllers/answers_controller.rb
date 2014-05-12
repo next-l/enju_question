@@ -5,7 +5,7 @@ class AnswersController < ApplicationController
   before_action :get_user, :except => [:edit]
   before_action :get_question
   after_action :verify_authorized
-  after_action :verify_policy_scoped, :only => :index
+  #after_action :verify_policy_scoped, :only => :index
 
   # GET /answers
   # GET /answers.json
@@ -93,8 +93,8 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
-    authorize Answer
     @answer = Answer.new(answer_params)
+    authorize @answer
     @answer.user = current_user
     unless @answer.question
       redirect_to questions_url

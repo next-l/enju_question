@@ -3,12 +3,16 @@ class QuestionPolicy < AdminPolicy
     if user.try(:has_role?, 'Librarian')
       true
     else
-      true if user and user == record.user
+      if user and user == record.user
+        true
+      elsif record.shared
+        true
+      end
     end
   end
 
   def create?
-    user.try(:has_role?, 'Librarian')
+    user.try(:has_role?, 'User')
   end
 
   def update?

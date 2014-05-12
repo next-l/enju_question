@@ -1,4 +1,8 @@
 class AnswerPolicy < AdminPolicy
+  def index?
+    true
+  end
+
   def show?
     user.try(:has_role?, 'Librarian')
   end
