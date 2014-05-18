@@ -20,7 +20,7 @@ module EnjuQuestion
 
     def get_question
       @question = Question.find(params[:question_id]) if params[:question_id]
-      authorize! :show, @question if @question
+      authorize @question if @question
     end
   end
 end

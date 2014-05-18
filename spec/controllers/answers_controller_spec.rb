@@ -80,7 +80,7 @@ describe AnswersController do
 
       it "should not get other user's index feed if question is not shared" do
         get :index, :question_id => 2, :format => 'rss'
-        response.should be_client_error
+        response.should redirect_to new_user_session_url
       end
 
       it "should get other user's index feed if question is shared" do

@@ -1,13 +1,15 @@
 # -*- encoding: utf-8 -*-
 class QuestionsController < ApplicationController
-  before_filter :store_location, :only => [:index, :show, :new, :edit]
-  load_and_authorize_resource
-  before_filter :get_user, :except => [:edit]
-  after_filter :solr_commit, :only => [:create, :update, :destroy]
+  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :store_location, :only => [:index, :show, :new, :edit]
+  before_action :get_user, :except => [:edit]
+  after_action :verify_authorized
+  after_action :solr_commit, :only => [:create, :update, :destroy]
 
   # GET /questions
   # GET /questions.json
   def index
+    authorize Question
     store_location
     if @user and user_signed_in?
       user = @user
@@ -119,7 +121,9 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @question = current_user.questions.new
+    @question = Question.new
+    authorize @question
+    @question.user = current_user
   end
 
   # GET /questions/1/edit
@@ -129,7 +133,8 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(params[:question])
+    @question = Question.new(question_params)
+    authorize @question
     @question.user = current_user
 
     respond_to do |format|
@@ -148,7 +153,7 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.json
   def update
     respond_to do |format|
-      if @question.update_attributes(params[:question])
+      if @question.update_attributes(question_params)
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.question'))
         format.html { redirect_to @question }
         format.json { head :no_content }
@@ -168,5 +173,17 @@ class QuestionsController < ApplicationController
       format.html { redirect_to user_questions_url(@question.user) }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def set_question
+    @question = Question.find(params[:id])
+    authorize @question
+  end
+
+  def question_params
+    params.require(:question).permit(
+      :body, :shared, :solved, :note
+    )
   end
 end
