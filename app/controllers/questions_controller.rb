@@ -134,8 +134,8 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = Question.new(question_params)
-    authorize @question
     @question.user = current_user
+    authorize @question
 
     respond_to do |format|
       if @question.save

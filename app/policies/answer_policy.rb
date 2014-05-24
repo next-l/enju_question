@@ -4,11 +4,15 @@ class AnswerPolicy < AdminPolicy
   end
 
   def show?
-    user.try(:has_role?, 'Librarian')
+    if user.try(:has_role?, 'Librarian')
+      true
+    else
+      true if user and user == record.user
+    end
   end
 
   def create?
-    user.try(:has_role?, 'Librarian')
+    user.try(:has_role?, 'User')
   end
 
   def update?

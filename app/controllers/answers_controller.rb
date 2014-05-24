@@ -77,9 +77,9 @@ class AnswersController < ApplicationController
 
   # GET /answers/new
   def new
-    authorize Answer
+    @answer = Answer.new
+    authorize @answer
     if @question
-      @answer = current_user.answers.new
       @answer.question = @question
     else
       flash[:notice] = t('answer.specify_question')
