@@ -53,7 +53,7 @@ describe AnswersController do
         assigns(:answers).should_not be_empty
       end
 
-      it "should not get other user's index if question is not shared" do
+      it "should not get other user's index if question is private" do
         get :index, :user_id => users(:librarian1).username, :question_id => 2
         response.should be_forbidden
       end
@@ -66,10 +66,10 @@ describe AnswersController do
         response.should redirect_to new_user_session_url
       end
 
-      it "should not get index with other user's question_id" do
-        get :index, :question_id => 1
-        assigns(:answers).should eq assigns(:question).answers.order('answers.id DESC').page(1)
-        response.should be_success
+      it "should not get index if question is private" do
+        get :index, :question_id => 2
+        assigns(:answers).should be_nil
+        response.should redirect_to new_user_session_url
       end
 
       it "should get other user's index if question is shared" do
@@ -78,9 +78,9 @@ describe AnswersController do
         assigns(:answers).should eq assigns(:question).answers.order('answers.id DESC').page(1)
       end
 
-      it "should not get other user's index feed if question is not shared" do
+      it "should not get other user's index feed if question is private" do
         get :index, :question_id => 2, :format => 'rss'
-        response.should redirect_to new_user_session_url
+        response.should be_forbidden
       end
 
       it "should get other user's index feed if question is shared" do
@@ -403,7 +403,7 @@ describe AnswersController do
       end
 
       it "should update other user's answer" do
-        put :update, :id => 3, :answer => { }, :user_id => users(:user1).username
+        put :update, :id => 3, :answer => {body: 'test'}, :user_id => users(:user1).username
         response.should redirect_to answer_url(assigns(:answer))
       end
     end
@@ -430,7 +430,7 @@ describe AnswersController do
       end
 
       it "should update my answer" do
-        put :update, :id => answers(:answer_00003), :answer => { }, :user_id => users(:user1).username
+        put :update, :id => answers(:answer_00003), :answer => {body: 'test'}, :user_id => users(:user1).username
         response.should redirect_to answer_url(assigns(:answer))
       end
 
@@ -447,7 +447,7 @@ describe AnswersController do
       end
 
       it "should update my answer with question_id" do
-        put :update, :id => 3, :answer => { }, :user_id => users(:user1).username, :question_id => 1
+        put :update, :id => 3, :answer => {body: 'test'}, :user_id => users(:user1).username, :question_id => 1
         response.should redirect_to answer_url(assigns(:answer))
       end
     end

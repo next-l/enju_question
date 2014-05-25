@@ -4,15 +4,9 @@ class QuestionPolicy < AdminPolicy
   end
 
   def show?
-    if user.try(:has_role?, 'Librarian')
-      true
-    else
-      if user and user == record.user
-        true
-      elsif record.shared
-        true
-      end
-    end
+    return true if record.shared?
+    return true if user.try(:has_role?, 'Librarian')
+    return true if user and user == record.user
   end
 
   def create?

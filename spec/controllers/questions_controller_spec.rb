@@ -467,7 +467,7 @@ describe QuestionsController do
       end
 
       it "should update my question" do
-        put :update, :id => 3, :question => { }
+        put :update, :id => 3, :question => {body: 'test'}
         assigns(:question).should eq Question.find(3)
         response.should redirect_to(assigns(:question))
       end
