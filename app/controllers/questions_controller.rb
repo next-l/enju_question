@@ -4,7 +4,6 @@ class QuestionsController < ApplicationController
   before_action :store_location, :only => [:index, :show, :new, :edit]
   before_action :get_user, :except => [:edit]
   after_action :verify_authorized
-  after_action :solr_commit, :only => [:create, :update, :destroy]
 
   # GET /questions
   # GET /questions.json

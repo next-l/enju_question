@@ -3,9 +3,10 @@ require 'spec_helper'
 describe QuestionsController do
   fixtures :all
 
-  describe "GET index", :solr => true do
+  describe "GET index" do
     before do
-      Question.reindex
+      Question.__elasticsearch__.create_index!
+      Question.import
     end
 
     describe "When logged in as Administrator" do

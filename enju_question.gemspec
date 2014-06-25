@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "vcr", "~> 2.9"
   #s.add_development_dependency "enju_leaf", "~> 1.2.0.pre1"
   #s.add_development_dependency "enju_ndl", "~> 0.2.0.pre1"
-  s.add_development_dependency "sunspot_solr", "~> 2.1"
   s.add_development_dependency "fakeweb"
-  s.add_development_dependency "sunspot-rails-tester"
+  s.add_development_dependency "simplecov"
+  s.add_development_dependency "elasticsearch-extensions"
 end
