@@ -39,42 +39,81 @@ class QuestionsController < ApplicationController
       @solved = solved.to_s
     end
 
-    search = Sunspot.new_search(Question)
-    query = params[:query].to_s.strip
-    unless query.blank?
-      @query = query.dup
-      query = query.gsub('　', ' ')
-      search.build do
-        fulltext query
-      end
+    if params[:query].to_s.strip == ''
+      user_query = '*'
+    else
+      user_query = params[:query]
     end
+    if user_signed_in?
+      role_ids = Role.where('id <= ?', current_user.role.id).pluck(:id)
+    else
+      role_ids = [1]
+    end
+
+    query = {
+      query: {
+        filtered: {
+          query: {
+            query_string: {
+              query: user_query, fields: ['_all']
+            }
+          }
+        }
+      },
+      sort: {
+      }
+    }
+
     search.build do
       order_by sort_by, :desc
     end
 
-    search.build do
-      with(:username).equal_to user.username if user
-      if c_user != user
-        unless c_user.has_role?('Librarian')
-          with(:shared).equal_to true
-        end
-      end
-      facet :solved
+    if user
+      query[:query][:filtered].merge(
+        filter: {
+          term: {
+            username: user.username
+          }
+        }
+      )
     end
 
-    @question_facet = search.execute!.facet(:solved).rows
+    if c_user != user
+      unless c_user.has_role?('Librarian')
+        query[:query][:filtered].merge(
+          filter: {
+            term: {
+              shared: true
+            }
+          }
+        )
+      end
+    end
 
     if @solved
-      search.build do
-        with(:solved).equal_to solved
-      end
+      query[:query][:filtered].merge(
+        filter: {
+          term: {
+            solved: true
+          }
+        }
+      )
     end
 
-    page = params[:page] || 1
-    search.query.paginate(page.to_i, Question.default_per_page)
-    result = search.execute!
-    @questions = result.results
-    @count[:query_result] = @questions.total_entries
+    body = {
+      facets: {
+        solved: {
+          terms: {
+            field: :solved
+          }
+        }
+      }
+    }
+
+    search = Question.search(query.merge(body), routing: role_ids)
+    @questions = search.page(params[:page]).records
+    @question_facet = search.response["facets"]["solved"]["terms"]
+    @count[:query_result] = searcu.results.total
 
     if query.present?
       begin
