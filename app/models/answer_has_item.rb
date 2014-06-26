@@ -15,7 +15,6 @@ end
 #  answer_id  :integer
 #  item_id    :integer
 #  position   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  created_at :datetime
+#  updated_at :datetime
 #
-
