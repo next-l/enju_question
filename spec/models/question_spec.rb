@@ -7,7 +7,7 @@ describe Question do
 
     it "test_should_get_crd_search", :vcr => true do
       result = Question.search_crd(:query_01 => 'Yahoo')
-      result.should be_true
+      result.should be_truthy
       result.total_count.should > 0
     end
 
