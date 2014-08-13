@@ -289,6 +289,7 @@ describe QuestionsController do
       describe "with valid params" do
         it "assigns a newly created question as @question" do
           post :create, :question => @attrs
+          assigns(:question).user.save!
           assigns(:question).should be_valid
         end
 
