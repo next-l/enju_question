@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "enju_ndl", "~> 0.1.0.pre31"
   s.add_development_dependency "sunspot_solr", "~> 2.1"
   s.add_development_dependency "fakeweb"
+  s.add_development_dependency "simplecov"
   s.add_development_dependency "annotate"
   s.add_development_dependency "sunspot-rails-tester"
 end
