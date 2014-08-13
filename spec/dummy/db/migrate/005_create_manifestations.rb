@@ -19,7 +19,7 @@ class CreateManifestations < ActiveRecord::Migration
       t.integer :height
       t.integer :width
       t.integer :depth
-      t.integer :price # TODO: currency unit
+      t.integer :price # TODO: 通貨単位
       t.text :fulltext
       t.string :volume_number_string
       t.string :issue_number_string
@@ -29,7 +29,6 @@ class CreateManifestations < ActiveRecord::Migration
       t.boolean :repository_content, :default => false, :null => false
       t.integer :lock_version, :default => 0, :null => false
       t.integer :required_role_id, :default => 1, :null => false
-      t.string :state
       t.integer :required_score, :default => 0, :null => false
       t.integer :frequency_id, :default => 1, :null => false
       t.boolean :subscription_master, :default => false, :null => false
