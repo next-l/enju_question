@@ -4,17 +4,17 @@
   <%- if params[:sort_by].blank? -%>
     <strong><%= t('question.last_answered_at') -%></strong>
   <%- else -%>
-    <%= link_to t('question.last_answered_at'), url_for(params.merge(:sort_by => nil, :only_path => true)) -%>
+    <%= link_to t('question.last_answered_at'), url_for(params.merge(sort_by: nil, only_path: true)) -%>
   <%- end -%>
   <%- if params[:sort_by] == 'created_at' -%>
     <strong><%= t('question.created_at') -%></strong>
   <%- else -%>
-    <%= link_to t('question.created_at'), url_for(params.merge(:sort_by => 'created_at', :only_path => true)) -%>
+    <%= link_to t('question.created_at'), url_for(params.merge(sort_by: 'created_at', only_path: true)) -%>
   <%- end -%>
   <%- if params[:sort_by] == 'answers_count' -%>
     <strong><%= t('activerecord.attributes.question.answers_count') -%></strong>
   <%- else -%>
-    <%= link_to t('activerecord.attributes.question.answers_count'), url_for(params.merge(:sort_by => 'answers_count', :only_path => true)) -%>
+    <%= link_to t('activerecord.attributes.question.answers_count'), url_for(params.merge(sort_by: 'answers_count', only_path: true)) -%>
   <%- end -%>
 </p>
 
@@ -41,7 +41,7 @@
         <%= t('question.last_answered_at') %>: <%= l(question.answers.last.updated_at) if question.answers.last -%>
       </td>
       <td>
-        <%= link_to image_tag('icons/comments.png', :alt => t('answer.count'), :size => '16x16'), question %>
+        <%= link_to image_tag('icons/comments.png', alt: t('answer.count'), size: '16x16'), question %>
         <%= link_to question.answers.size, question -%>
         <%- if question.solved %>
           <%= t('question.solved') %>
@@ -54,7 +54,7 @@
           <%= link_to t('page.edit'), edit_question_path(question) -%>
         <% end %>
         <%- if can? :delete, question -%>
-          <%= link_to t('page.destroy'), question, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
+          <%= link_to t('page.destroy'), question, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
         <%- end -%>
       </td>
     </tr>
@@ -64,6 +64,6 @@
   <p><%= t('question.no_record_found') -%></p>
 <%- end -%>
 
-<%= paginate(@questions, :remote => true) -%>
+<%= paginate(@questions, remote: true) -%>
 
 </div>

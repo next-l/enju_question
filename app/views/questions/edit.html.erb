@@ -1,8 +1,8 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.question')) -%></h1>
+<h1 class="title"><%= t('page.editing', model: t('activerecord.models.question')) -%></h1>
 <div id="content_list">
 
-<%= simple_form_for(@question, :validate => true) do |f| -%>
+<%= simple_form_for(@question, validate: true) do |f| -%>
   <%= f.error_notification -%>
 
   <div class="field">
@@ -12,7 +12,7 @@
 
   <div class="field">
     <%= f.label :body -%><br />
-    <%= f.text_area :body, :class => 'resource_textarea' -%>
+    <%= f.text_area :body, class: 'resource_textarea' -%>
   </div>
 
   <div class="field">

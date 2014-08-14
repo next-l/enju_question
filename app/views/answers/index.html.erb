@@ -1,5 +1,5 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.answer')) -%></h1>
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.answer')) -%></h1>
 <div id="content_list">
 
 <%- if @question -%>
@@ -24,7 +24,7 @@
     <td>
       <%- if can? :delete, answer -%>
         <%= link_to t('page.edit'), edit_answer_path(answer) -%>
-        <%= link_to t('page.destroy'), answer, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
+        <%= link_to t('page.destroy'), answer, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
       <%- end -%>
     </td>
   </tr>
@@ -38,7 +38,7 @@
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <%- if @question -%>
     <ul>
-      <li><%= link_to t('page.new', :model => t('activerecord.models.answer')), new_question_answer_path(@question) -%></li>
+      <li><%= link_to t('page.new', model: t('activerecord.models.answer')), new_question_answer_path(@question) -%></li>
     </ul>
   <%- end -%>
 </div>
