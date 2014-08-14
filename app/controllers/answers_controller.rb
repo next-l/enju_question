@@ -5,7 +5,6 @@ class AnswersController < ApplicationController
   before_filter :store_location, :only => [:index, :show, :new, :edit]
   before_filter :get_user, :except => [:edit]
   before_filter :get_question
-  cache_sweeper :question_sweeper, :only => [:create, :update, :destroy]
 
   # GET /answers
   # GET /answers.json

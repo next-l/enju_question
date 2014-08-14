@@ -500,8 +500,8 @@ ActiveRecord::Schema.define(:version => 20140812093836) do
     t.datetime "created_at",                                                        :null => false
     t.datetime "updated_at",                                                        :null => false
     t.text     "admin_networks"
-    t.string   "url",                         :default => "http://localhost:3000/"
     t.boolean  "allow_bookmark_external_url", :default => false,                    :null => false
+    t.string   "url",                         :default => "http://localhost:3000/"
   end
 
   add_index "library_groups", ["short_name"], :name => "index_library_groups_on_short_name"
@@ -1029,6 +1029,7 @@ ActiveRecord::Schema.define(:version => 20140812093836) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.boolean  "share_bookmarks"
     t.string   "answer_feed_token"
     t.string   "username"
     t.datetime "deleted_at"
@@ -1037,7 +1038,6 @@ ActiveRecord::Schema.define(:version => 20140812093836) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.datetime "confirmed_at"
-    t.boolean  "share_bookmarks"
   end
 
   add_index "users", ["answer_feed_token"], :name => "index_users_on_answer_feed_token", :unique => true
