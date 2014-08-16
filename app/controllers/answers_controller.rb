@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 class AnswersController < ApplicationController
-  load_and_authorize_resource :except => :index
-  authorize_resource :only => :index
-  before_filter :store_location, :only => [:index, :show, :new, :edit]
-  before_filter :get_user, :except => [:edit]
+  load_and_authorize_resource except: :index
+  authorize_resource only: :index
+  before_filter :store_location, only: [:index, :show, :new, :edit]
+  before_filter :get_user, except: [:edit]
   before_filter :get_question
 
   # GET /answers
@@ -58,8 +58,8 @@ class AnswersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @answers.to_json }
-      format.rss  { render :layout => false }
+      format.json { render json: @answers.to_json }
+      format.rss  { render layout: false }
       format.atom
     end
   end
@@ -69,7 +69,7 @@ class AnswersController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @answer.to_json }
+      format.json { render json: @answer.to_json }
     end
   end
 
@@ -100,14 +100,14 @@ class AnswersController < ApplicationController
 
     respond_to do |format|
       if @answer.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.answer'))
+        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.answer'))
         format.html { redirect_to @answer }
-        format.json { render :json => @answer, :status => :created, :location => answer_url(@answer) }
+        format.json { render json: @answer, status: :created, location: answer_url(@answer) }
         format.mobile { redirect_to question_url(@answer.question) }
       else
-        format.html { render :action => "new" }
-        format.json { render :json => @answer.errors, :status => :unprocessable_entity }
-        format.mobile { render :action => "new" }
+        format.html { render action: "new" }
+        format.json { render json: @answer.errors, status: :unprocessable_entity }
+        format.mobile { render action: "new" }
       end
     end
   end
@@ -117,12 +117,12 @@ class AnswersController < ApplicationController
   def update
     respond_to do |format|
       if @answer.update_attributes(params[:answer])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.answer'))
+        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.answer'))
         format.html { redirect_to @answer }
         format.json { head :no_content }
       else
-        format.html { render :action => "edit" }
-        format.json { render :json => @answer.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.json { render json: @answer.errors, status: :unprocessable_entity }
       end
     end
   end

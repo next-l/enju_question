@@ -4,7 +4,7 @@
 
   <div class="field">
     <%= f.label t('activerecord.models.user') %><br />
-    <%= link_to @answer.user.username, @answer.user %>
+    <%= link_to @answer.user.username, @answer.user.profile if @answer.user.try(:profile) %>
   </div>
 
   <div class="field">

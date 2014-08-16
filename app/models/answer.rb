@@ -1,13 +1,13 @@
 # -*- encoding: utf-8 -*-
 class Answer < ActiveRecord::Base
   attr_accessible :question_id, :body, :item_identifier_list, :url_list
-  default_scope :order => 'answers.id ASC'
+  default_scope order: 'answers.id ASC'
   #scope :public_answers, where(:shared => true)
   #scope :private_answers, where(:shared => false)
-  belongs_to :user, :validate => true
-  belongs_to :question, :validate => true
-  has_many :answer_has_items, :dependent => :destroy
-  has_many :items, :through => :answer_has_items
+  belongs_to :user, validate: true
+  belongs_to :question, validate: true
+  has_many :answer_has_items, dependent: :destroy
+  has_many :items, through: :answer_has_items
 
   after_save :save_questions
   before_save :add_items
@@ -19,11 +19,11 @@ class Answer < ActiveRecord::Base
   paginates_per 10
 
   def save_questions
-    self.question.save
+    question.save
   end
 
   def add_items
-    item_list = item_identifier_list.to_s.strip.split.map{|i| Item.where(:item_identifier => i).first}.compact.uniq
+    item_list = item_identifier_list.to_s.strip.split.map{|i| Item.where(item_identifier: i).first}.compact.uniq
     url_list = add_urls
     self.items = item_list + url_list
   end

@@ -31,8 +31,8 @@
     <tr class="line<%= cycle("0", "1") -%>">
       <td style="width: 30px"><%= question.id -%></td>
       <td>
-        <%= link_to truncate(question.body, :length => 60), question -%>
-        (<%= link_to question.user.username, question.user -%>)
+        <%= link_to truncate(question.body, length: 60), question -%>
+        (<%= link_to question.user.username, question.user.profile if question.user.try(:profile) -%>)
         <br />
         <!--
         <%= t('question.updated_at') %>: <%= l(question.updated_at) -%>

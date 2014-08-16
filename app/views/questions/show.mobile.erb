@@ -11,7 +11,7 @@
 
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to @question.user.username, @question.user -%>
+  <%= link_to @question.user.username, @question.user.profile if @question.user.try(:profile) -%>
   <strong><%= t('activerecord.attributes.question.shared') -%>:</strong>
   <%= localized_boolean(@question.shared) -%>
   <strong><%= t('activerecord.attributes.question.solved') -%>:</strong>
@@ -27,7 +27,7 @@
 
 <ul>
   <%- @question.answers.each do |answer| -%>
-    <li><%= link_to answer.user.username, answer.user -%>
+    <li><%= link_to answer.user.username, answer.user.profile if answer.user.try(:profile) -%>
     (<%=l answer.updated_at %>)<br />
     <%= raw auto_link(textilize(h(answer.body))) -%><br />
     <% unless answer.items.empty? %>

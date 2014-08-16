@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 class QuestionsController < ApplicationController
-  before_filter :store_location, :only => [:index, :show, :new, :edit]
+  before_filter :store_location, only: [:index, :show, :new, :edit]
   load_and_authorize_resource
-  before_filter :get_user, :except => [:edit]
-  after_filter :solr_commit, :only => [:create, :update, :destroy]
+  before_filter :get_user, except: [:edit]
+  after_filter :solr_commit, only: [:create, :update, :destroy]
 
   # GET /questions
   # GET /questions.json
@@ -85,16 +85,16 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @questions }
+      format.json { render json: @questions }
       format.xml {
         if params[:mode] == 'crd'
-          render :template => 'questions/index_crd'
+          render template: 'questions/index_crd'
           convert_charset
         else
           render :xml => @questions
         end
       }
-      format.rss  { render :layout => false }
+      format.rss  { render layout: false }
       format.atom
       format.js
     end
@@ -105,10 +105,10 @@ class QuestionsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @question }
+      format.json { render json: @question }
       format.xml {
         if params[:mode] == 'crd'
-          render :template => 'questions/show_crd'
+          render template: 'questions/show_crd'
           convert_charset
         else
           render :xml => @question
@@ -134,12 +134,12 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.question'))
+        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.question'))
         format.html { redirect_to @question }
-        format.json { render :json => @question, :status => :created, :location => @question }
+        format.json { render json: @question, status: :created, location: @question }
       else
-        format.html { render :action => "new" }
-        format.json { render :json => @question.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -149,12 +149,12 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update_attributes(params[:question])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.question'))
+        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.question'))
         format.html { redirect_to @question }
         format.json { head :no_content }
       else
-        format.html { render :action => "edit" }
-        format.json { render :json => @question.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end
   end

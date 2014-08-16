@@ -1,13 +1,13 @@
 # -*- encoding: utf-8 -*-
 class Question < ActiveRecord::Base
   attr_accessible :body, :shared, :solved, :note
-  default_scope :order => 'id DESC'
+  default_scope order: 'id DESC'
   scope :public_questions, where(:shared => true)
   scope :private_questions, where(:shared => false)
   scope :solved, where(:solved => true)
   scope :unsolved, where(:solved => false)
-  belongs_to :user, :validate => true
-  has_many :answers, :dependent => :destroy
+  belongs_to :user, validate: true
+  has_many :answers, dependent: :destroy
 
   validates_associated :user
   validates_presence_of :user, :body
@@ -22,7 +22,7 @@ class Question < ActiveRecord::Base
     boolean :shared
     boolean :solved
     integer :answers_count
-    integer :manifestation_id, :multiple => true do
+    integer :manifestation_id, multiple: true do
       answers.collect(&:items).flatten.collect{|i| i.manifestation.id}
     end
   end
