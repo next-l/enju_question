@@ -10,6 +10,6 @@
     </li>
   <%- end -%>
   <%- if @solved -%>
-    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:solved => nil, page: nil, view: nil, only_path: true)) -%></li>
+    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(solved: nil, page: nil, view: nil, only_path: true)) -%></li>
   <%- end -%>
 </ul>
