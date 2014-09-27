@@ -2,10 +2,10 @@
 class Question < ActiveRecord::Base
   attr_accessible :body, :shared, :solved, :note
   default_scope order: 'id DESC'
-  scope :public_questions, where(:shared => true)
-  scope :private_questions, where(:shared => false)
-  scope :solved, where(:solved => true)
-  scope :unsolved, where(:solved => false)
+  scope :public_questions, -> {where(shared: true)}
+  scope :private_questions, -> {where(shared: false)}
+  scope :solved, -> {where(solved: true)}
+  scope :unsolved, -> {where(solved: false)}
   belongs_to :user, validate: true
   has_many :answers, dependent: :destroy
 
