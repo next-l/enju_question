@@ -8,7 +8,7 @@ describe "questions/index.rss.builder" do
     assign(:questions, Question.page(1))
     assign(:count, {query_result: Question.count})
     assign(:library_group, LibraryGroup.site_config)
-    view.stub(:current_user).and_return(User.find('admin'))
+    view.stub(:current_user).and_return(User.where(username: 'enjuadmin').first)
     @ability = Object.new
     @ability.extend(CanCan::Ability)
     controller.stub(:current_ability) { @ability }

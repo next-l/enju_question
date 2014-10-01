@@ -26,7 +26,7 @@ describe QuestionsController do
       end
 
       it "assigns all questions as @questionsin rss format" do
-        get :index, :format => 'rss'
+        get :index, :format => :rss
         assigns(:questions).should_not be_nil
       end
     end
@@ -40,7 +40,7 @@ describe QuestionsController do
       end
 
       it "should get my index feed" do
-        get :index, :format => 'rss'
+        get :index, :format => :rss
         response.should be_success
         assigns(:questions).should eq Question.public_questions.order(:updated_at).page(1)
       end
