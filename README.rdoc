@@ -1,4 +1,4 @@
-= EnjuEvent
+= EnjuQuestion
 {<img src="https://secure.travis-ci.org/next-l/enju_question.png?branch=1.1" alt="Build Status" />}[http://travis-ci.org/next-l/enju_question]
 {<img src="https://coveralls.io/repos/next-l/enju_question/badge.png?branch=1.1" alt="Coverage Status" />}[https://coveralls.io/r/next-l/enju_question?branch=1.1]
 {<img src="https://hakiri.io/github/next-l/enju_question/1.1.svg" alt="security" />}[https://hakiri.io/github/next-l/enju_question/1.1]
