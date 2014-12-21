@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 class Answer < ActiveRecord::Base
-  attr_accessible :question_id, :body, :item_identifier_list, :url_list
   default_scope { order('answers.id ASC') }
   #scope :public_answers, where(:shared => true)
   #scope :private_answers, where(:shared => false)

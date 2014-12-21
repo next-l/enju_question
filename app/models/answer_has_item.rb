@@ -1,5 +1,4 @@
 class AnswerHasItem < ActiveRecord::Base
-  attr_accessible :answer_id, :item_id
   belongs_to :answer
   belongs_to :item
 
