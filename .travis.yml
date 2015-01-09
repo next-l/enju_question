@@ -3,12 +3,6 @@ cache: bundler
 rvm:
   - 1.9.3
   - 2.0.0
-<<<<<<< HEAD
-  - 2.1.2
-before_script: "bundle exec rake db:migrate"
-services:
-  - elasticsearch
-=======
   - 2.1.5
   - 2.2.0
 before_script:
@@ -43,4 +37,3 @@ notifications:
   slack:
     secure: nd4Wr2vUDgELs8xgMoh6KHazQplxuidbxRpFjw7zTAVc9m2rVTqhXq+zH1af8dhUZaImkD8qPu2IfeE0bLxEcF9UZluY9MOQmSx+7Oe9hURgh0HRoYk+XT1915OaR9R7bO7Vs3vHC1W/mWH0dRDF2hv06MSdh+xMz/taB9Js5lM=
 sudo: false
->>>>>>> 1.1
