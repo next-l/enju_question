@@ -30,6 +30,7 @@ end
 #  state         :string(255)
 #  solved        :boolean          default(FALSE), not null
 #  note          :text
-#  created_at    :datetime
-#  updated_at    :datetime
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
+

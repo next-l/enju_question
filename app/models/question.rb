@@ -1,53 +1,29 @@
 # -*- encoding: utf-8 -*-
 class Question < ActiveRecord::Base
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
-  default_scope {order('id DESC')}
-  scope :public_questions, -> {where(:shared => true)}
-  scope :private_questions, -> {where(:shared => false)}
-  scope :solved, -> {where(:solved => true)}
-  scope :unsolved, -> {where(:solved => false)}
-  belongs_to :user, :validate => true
-  has_many :answers, :dependent => :destroy
+  default_scope { order('id DESC') }
+  scope :public_questions, -> {where(shared: true)}
+  scope :private_questions, -> {where(shared: false)}
+  scope :solved, -> {where(solved: true)}
+  scope :unsolved, -> {where(solved: false)}
+  belongs_to :user, validate: true
+  has_many :answers, dependent: :destroy
 
   validates_associated :user
   validates_presence_of :user, :body
 
-  index_name "#{name.downcase.pluralize}-#{Rails.env}"
-
-  after_commit on: :create do
-    index_document
-  end
-
-  after_commit on: :update do
-    update_document
-  end
-
-  after_commit on: :destroy do
-    delete_document
-  end
-
-  settings do
-    mappings dynamic: 'false', _routing: {required: false} do
-      indexes :body
-      indexes :answer_body
-      indexes :note
-      indexes :shared, type: 'boolean'
-      indexes :solved, type: 'boolean'
-      indexes :created_at, type: 'date'
-      indexes :updated_at, type: 'date'
-      indexes :manifestation_id, type: 'integer'
-      indexes :answers_count, type: 'integer'
+  searchable do
+    text :body, :answer_body
+    string :username
+    time :created_at
+    time :updated_at do
+      last_updated_at
     end
-  end
-
-  def as_indexed_json(options={})
-    as_json.merge(
-      answer_body: answer_body,
-      username: user.try(:username),
-      updated_at: last_updated_at,
-      manifestation_id: answers.collect(&:items).flatten.collect{|i| i.manifestation.id}
-    )
+    boolean :shared
+    boolean :solved
+    integer :answers_count
+    integer :manifestation_id, multiple: true do
+      answers.collect(&:items).flatten.collect{|i| i.manifestation.id}
+    end
   end
 
   acts_as_taggable_on :tags
@@ -102,6 +78,7 @@ end
 #  state         :string(255)
 #  solved        :boolean          default(FALSE), not null
 #  note          :text
-#  created_at    :datetime
-#  updated_at    :datetime
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
+

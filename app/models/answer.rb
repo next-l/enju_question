@@ -1,12 +1,12 @@
 # -*- encoding: utf-8 -*-
 class Answer < ActiveRecord::Base
-  default_scope {order('answers.id ASC')}
-  #scope :public_answers, -> {where(:shared => true)}
-  #scope :private_answers, -> {where(:shared => false)}
-  belongs_to :user, :validate => true
-  belongs_to :question, :validate => true
-  has_many :answer_has_items, :dependent => :destroy
-  has_many :items, :through => :answer_has_items
+  default_scope { order('answers.id ASC') }
+  #scope :public_answers, where(:shared => true)
+  #scope :private_answers, where(:shared => false)
+  belongs_to :user, validate: true
+  belongs_to :question, validate: true
+  has_many :answer_has_items, dependent: :destroy
+  has_many :items, through: :answer_has_items
 
   after_save :save_questions
   before_save :add_items
@@ -18,11 +18,11 @@ class Answer < ActiveRecord::Base
   paginates_per 10
 
   def save_questions
-    self.question.save
+    question.save
   end
 
   def add_items
-    item_list = item_identifier_list.to_s.strip.split.map{|i| Item.where(:item_identifier => i).first}.compact.uniq
+    item_list = item_identifier_list.to_s.strip.split.map{|i| Item.where(item_identifier: i).first}.compact.uniq
     url_list = add_urls
     self.items = item_list + url_list
   end
@@ -46,11 +46,12 @@ end
 #  user_id              :integer          not null
 #  question_id          :integer          not null
 #  body                 :text
-#  created_at           :datetime
-#  updated_at           :datetime
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
 #  deleted_at           :datetime
 #  shared               :boolean          default(TRUE), not null
 #  state                :string(255)
 #  item_identifier_list :text
 #  url_list             :text
 #
+

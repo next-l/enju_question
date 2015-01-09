@@ -1,10 +1,9 @@
 class AnswerHasItem < ActiveRecord::Base
-  #attr_accessible :answer_id, :item_id
   belongs_to :answer
   belongs_to :item
 
-  validates_uniqueness_of :item_id, :scope => :answer_id
-  acts_as_list :scope => :answer_id
+  validates_uniqueness_of :item_id, scope: :answer_id
+  acts_as_list scope: :answer_id
 end
 
 # == Schema Information
@@ -15,6 +14,7 @@ end
 #  answer_id  :integer
 #  item_id    :integer
 #  position   :integer
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
+

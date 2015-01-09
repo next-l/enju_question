@@ -1,28 +1,29 @@
 require 'simplecov'
+require 'coveralls'
 SimpleCov.start 'rails'
+Coveralls.wear!
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../spec/dummy/config/environment", __FILE__)
+require File.expand_path("../dummy/config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
-require 'vcr'
 require 'factory_girl'
-require 'rake'
-require 'elasticsearch/extensions/test/cluster/tasks'
+require 'vcr'
+require 'sunspot-rails-tester'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
-  # ## Mock Framework
+  # == Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
   #
   # config.mock_with :mocha
   # config.mock_with :flexmock
   # config.mock_with :rr
+  config.mock_with :rspec
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/../../spec/fixtures"
@@ -32,19 +33,18 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
-  # If true, the base class of anonymous controllers will be inferred
-  # automatically. This will be the default behavior in future versions of
-  # rspec-rails.
-  config.infer_base_class_for_anonymous_controllers = false
-
   config.extend ControllerMacros, :type => :controller
 
-  config.before :suite do
-    Elasticsearch::Extensions::Test::Cluster.start(port: 9200) unless Elasticsearch::Extensions::Test::Cluster.running?(on: 9200)
+  $original_sunspot_session = Sunspot.session
+
+  config.before do
+    Sunspot.session = Sunspot::Rails::StubSessionProxy.new($original_sunspot_session)
   end
 
-  config.after :suite do
-    Elasticsearch::Extensions::Test::Cluster.stop(port: 9200) if Elasticsearch::Extensions::Test::Cluster.running?(on: 9200)
+  config.before :each, :solr => true do
+    Sunspot::Rails::Tester.start_original_sunspot_session
+    Sunspot.session = $original_sunspot_session
+    Sunspot.remove_all!
   end
 
   config.infer_spec_type_from_file_location!
@@ -55,7 +55,7 @@ FactoryGirl.find_definitions
 
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/cassette_library'
-  c.hook_into :fakeweb
+  c.hook_into :webmock
   c.configure_rspec_metadata!
   c.allow_http_connections_when_no_cassette = true
 end

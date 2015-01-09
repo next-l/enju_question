@@ -1,14 +1,13 @@
 # -*- encoding: utf-8 -*-
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
-  before_action :store_location, :only => [:index, :show, :new, :edit]
-  before_action :get_user, :except => [:edit]
-  after_action :verify_authorized
+  before_filter :store_location, only: [:index, :show, :new, :edit]
+  load_and_authorize_resource
+  before_filter :get_user, except: [:edit]
+  after_filter :solr_commit, only: [:create, :update, :destroy]
 
   # GET /questions
   # GET /questions.json
   def index
-    authorize Question
     store_location
     if @user and user_signed_in?
       user = @user
@@ -39,81 +38,42 @@ class QuestionsController < ApplicationController
       @solved = solved.to_s
     end
 
-    if params[:query].to_s.strip == ''
-      user_query = '*'
-    else
-      user_query = params[:query]
+    search = Sunspot.new_search(Question)
+    query = params[:query].to_s.strip
+    unless query.blank?
+      @query = query.dup
+      query = query.gsub('　', ' ')
+      search.build do
+        fulltext query
+      end
     end
-    if user_signed_in?
-      role_ids = Role.where('id <= ?', current_user.role.id).pluck(:id)
-    else
-      role_ids = [1]
-    end
-
-    query = {
-      query: {
-        filtered: {
-          query: {
-            query_string: {
-              query: user_query, fields: ['_all']
-            }
-          }
-        }
-      },
-      sort: {
-      }
-    }
-
     search.build do
       order_by sort_by, :desc
     end
 
-    if user
-      query[:query][:filtered].merge(
-        filter: {
-          term: {
-            username: user.username
-          }
-        }
-      )
+    search.build do
+      with(:username).equal_to user.username if user
+      if c_user != user
+        unless c_user.has_role?('Librarian')
+          with(:shared).equal_to true
+        end
+      end
+      facet :solved
     end
 
-    if c_user != user
-      unless c_user.has_role?('Librarian')
-        query[:query][:filtered].merge(
-          filter: {
-            term: {
-              shared: true
-            }
-          }
-        )
+    @question_facet = search.execute!.facet(:solved).rows
+
+    if @solved
+      search.build do
+        with(:solved).equal_to solved
       end
     end
 
-    if @solved
-      query[:query][:filtered].merge(
-        filter: {
-          term: {
-            solved: true
-          }
-        }
-      )
-    end
-
-    body = {
-      facets: {
-        solved: {
-          terms: {
-            field: :solved
-          }
-        }
-      }
-    }
-
-    search = Question.search(query.merge(body), routing: role_ids)
-    @questions = search.page(params[:page]).records
-    @question_facet = search.response["facets"]["solved"]["terms"]
-    @count[:query_result] = searcu.results.total
+    page = params[:page] || 1
+    search.query.paginate(page.to_i, Question.default_per_page)
+    result = search.execute!
+    @questions = result.results
+    @count[:query_result] = @questions.total_entries
 
     if query.present?
       begin
@@ -125,16 +85,16 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @questions }
+      format.json { render json: @questions }
       format.xml {
         if params[:mode] == 'crd'
-          render :template => 'questions/index_crd'
+          render template: 'questions/index_crd'
           convert_charset
         else
           render :xml => @questions
         end
       }
-      format.rss  { render :layout => false }
+      format.rss  { render layout: false }
       format.atom
       format.js
     end
@@ -145,10 +105,10 @@ class QuestionsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @question }
+      format.json { render json: @question }
       format.xml {
         if params[:mode] == 'crd'
-          render :template => 'questions/show_crd'
+          render template: 'questions/show_crd'
           convert_charset
         else
           render :xml => @question
@@ -159,9 +119,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @question = Question.new
-    authorize @question
-    @question.user = current_user
+    @question = current_user.questions.new
   end
 
   # GET /questions/1/edit
@@ -173,16 +131,15 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     @question.user = current_user
-    authorize @question
 
     respond_to do |format|
       if @question.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.question'))
+        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.question'))
         format.html { redirect_to @question }
-        format.json { render :json => @question, :status => :created, :location => @question }
+        format.json { render json: @question, status: :created, location: @question }
       else
-        format.html { render :action => "new" }
-        format.json { render :json => @question.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -192,12 +149,12 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update_attributes(question_params)
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.question'))
+        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.question'))
         format.html { redirect_to @question }
         format.json { head :no_content }
       else
-        format.html { render :action => "edit" }
-        format.json { render :json => @question.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -214,14 +171,7 @@ class QuestionsController < ApplicationController
   end
 
   private
-  def set_question
-    @question = Question.find(params[:id])
-    authorize @question
-  end
-
   def question_params
-    params.require(:question).permit(
-      :body, :shared, :solved, :note
-    )
+    params.require(:question).permit(:body, :shared, :solved, :note)
   end
 end
