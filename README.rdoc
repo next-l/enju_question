@@ -1,5 +1,5 @@
 = EnjuQuestion
-{<img src="https://travis-ci.org/next-l/enju_question.png?branch=master" alt="Build Status" />}[http://travis-ci.org/next-l/enju_question]
+{<img src="https://travis-ci.org/next-l/enju_question.svg?branch=master" alt="Build Status" />}[http://travis-ci.org/next-l/enju_question]
 {<img src="https://img.shields.io/coveralls/next-l/enju_question.svg" alt="Coverage Status" />}[https://coveralls.io/r/next-l/enju_nii?branch=master]
 {<img src="https://hakiri.io/github/next-l/enju_question/master.svg" alt="security" />}[https://hakiri.io/github/next-l/enju_question/master]
 
