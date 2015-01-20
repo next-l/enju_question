@@ -147,10 +147,19 @@ describe QuestionsController do
         assigns(:question).should eq(@question)
       end
 
-      it "should show crd xml" do
-        get :show, id: @question.id, :mode => 'crd', format: :xml
+      it "should not show other user's question" do
+        get :show, id: 2
+        assigns(:question).should eq(questions(:question_00002))
+      end
+
+      it "should show question if the question is shared" do
+        get :show, id: 2
+        assigns(:question).should eq(questions(:question_00002))
+      end
+
+      it "should show crd xml if the question is shared" do
+        get :show, id: 1, :mode => 'crd', format: :xml
         response.should be_success
-        response.should render_template("questions/show_crd")
       end
     end
   end
@@ -186,7 +195,7 @@ describe QuestionsController do
     describe "When not logged in" do
       it "should not assign the requested question as @question" do
         get :new
-        assigns(:question).should_not be_valid
+        assigns(:question).should be_nil
         response.should redirect_to(new_user_session_url)
       end
     end
@@ -344,7 +353,7 @@ describe QuestionsController do
       describe "with valid params" do
         it "assigns a newly created question as @question" do
           post :create, question: @attrs
-          assigns(:question).should_not be_valid
+          assigns(:question).should be_nil
         end
 
         it "should be forbidden" do
@@ -356,7 +365,7 @@ describe QuestionsController do
       describe "with invalid params" do
         it "assigns a newly created but unsaved question as @question" do
           post :create, question: @invalid_attrs
-          assigns(:question).should_not be_valid
+          assigns(:question).should be_nil
         end
 
         it "should be forbidden" do

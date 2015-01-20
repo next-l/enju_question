@@ -47,7 +47,7 @@
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
-    <%- if can? :update, @answer -%>
+    <%- if policy(@answer).update? -%>
       <li><%= link_to t('page.edit'), edit_answer_path(@answer) -%></li>
     <%- end -%>
     <li><%= link_to t('page.back'), question_answers_path(@answer.question) -%></li>
