@@ -75,10 +75,9 @@ end
 #  shared        :boolean          default(TRUE), not null
 #  answers_count :integer          default(0), not null
 #  deleted_at    :datetime
-#  state         :string(255)
+#  state         :string
 #  solved        :boolean          default(FALSE), not null
 #  note          :text
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  created_at    :datetime
+#  updated_at    :datetime
 #
-

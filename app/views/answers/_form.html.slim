@@ -1,0 +1,25 @@
+= simple_form_for(@answer, validate: true) do |f|
+  = f.error_notification
+  = f.hidden_field :question_id
+  .field
+    = f.label t('activerecord.models.user')
+    br
+    = link_to @answer.user.username, @answer.user.profile if @answer.user.try(:profile)
+  .field
+    = f.label t('activerecord.models.question')
+    br
+    = link_to @answer.question.body, @answer.question
+  .field
+    = f.label :body
+    br
+    = f.text_area :body, class: 'resource_textarea'
+  .field
+    = f.label :item_identifier_list
+    br
+    = f.text_area :item_identifier_list, class: 'resource_textarea'
+  .field
+    = f.label :url_list
+    br
+    = f.text_area :url_list, class: 'resource_textarea'
+  .actions
+    = f.submit
