@@ -36,9 +36,9 @@
       strong
         = link_to t('activerecord.models.answer'), answers_path(question_id: @question.id)
         | :
-    ul
+    ul.list-group
       - @question.answers.each do |answer|
-        li
+        li.list-group-item
           = link_to answer.user.username, answer.user.profile if answer.user.try(:profile)
           |  (
           =l answer.updated_at
@@ -47,19 +47,19 @@
           = raw auto_link(textilize(h(answer.body)))
           br
           - unless answer.items.empty?
-          ul
+          ul.list-group
             - answer.items.each do |item|
-              li
+              li.list-group-item
                 = link_to item.manifestation.original_title, item.manifestation
                 br
 #submenu.ui-corner-all.ui-widget-content
-  ul
-    li
+  ul.list-group
+    li.list-group-item
       = link_to t('question.answer_question'), new_question_answer_path(@question)
     - if policy(@question).update?
-      li
+      li.list-group-item
         = link_to t('page.edit'), edit_question_path(@question)
-      li
+      li.list-group-item
         = back_to_index(flash[:page_info])
-      li
+      li.list-group-item
         = link_to 'レファレンス協同データベース用XMLファイル', question_path(@question, mode: 'crd', format: 'xml')

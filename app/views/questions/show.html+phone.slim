@@ -31,9 +31,9 @@ div[data-role="content"]
         = t('page.updated_at')
         | :
       = l(@question.updated_at)
-    ul
+    ul.list-group
       - @question.answers.each do |answer|
-        li
+        li.list-group-item
           = link_to answer.user.username, answer.user.profile if answer.user.try(:profile)
           |  (
           =l answer.updated_at
@@ -42,9 +42,9 @@ div[data-role="content"]
           = raw auto_link(textilize(h(answer.body)))
           br
           - unless answer.items.empty?
-          ul
+          ul.list-group
             - answer.items.each do |item|
-              li
+              li.list-group-item
                 = link_to item.manifestation.original_title, item.manifestation
                 br
     h3

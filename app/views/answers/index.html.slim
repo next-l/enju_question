@@ -35,6 +35,6 @@
       = paginate(@answers)
 #submenu.ui-corner-all.ui-widget-content
   - if @question
-    ul
-      li
+    ul.list-group
+      li.list-group-item
         = link_to t('page.new', model: t('activerecord.models.answer')), new_answer_path(question_id: @question.id)

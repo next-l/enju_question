@@ -10,6 +10,6 @@ div[data-role="content"]
       = submit_tag t('page.search')
 ul[data-role="listview"]
   - @questions.each do |question|
-    li
+    li.list-group-item
       = link_to truncate(question.body, length: 60), question
 = paginate(@questions)

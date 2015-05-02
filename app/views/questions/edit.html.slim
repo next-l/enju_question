@@ -24,8 +24,8 @@
       .form-control
         = f.submit
 #submenu.ui-corner-all.ui-widget-content
-  ul
-    li
+  ul.list-group
+    li.list-group-item
       = link_to t('page.show'), @question
-    li
+    li.list-group-item
       = link_to t('page.back'), user_questions_path(@question.user)

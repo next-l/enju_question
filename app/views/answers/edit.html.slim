@@ -4,8 +4,8 @@
   #content_list
     = render 'form'
 #submenu.ui-corner-all.ui-widget-content
-  ul
-    li
+  ul.list-group
+    li.list-group-item
       = link_to t('page.show'), @answer
-    li
+    li.list-group-item
       = link_to t('page.back'), question_answers_path(@answer.question)

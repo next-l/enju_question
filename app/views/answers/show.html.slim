@@ -23,9 +23,9 @@
       = raw auto_link(textilize(h(@answer.body)))
     p
 
-    ul
+    ul.list-group
       - @answer.items.each do |item|
-        li
+        li.list-group-item
           = link_to item.manifestation.original_title, item.manifestation
           - if item.item_identifier?
             |  (
@@ -42,9 +42,9 @@
         | :
       = l(@answer.updated_at)
 #submenu.ui-corner-all.ui-widget-content
-  ul
+  ul.list-group
     - if policy(@answer).update?
-      li
+      li.list-group-item
         = link_to t('page.edit'), edit_answer_path(@answer)
-      li
+      li.list-group-item
         = link_to t('page.back'), question_answers_path(@answer.question)
