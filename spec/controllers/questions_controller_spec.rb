@@ -186,7 +186,7 @@ describe QuestionsController do
     describe "When not logged in" do
       it "should not assign the requested question as @question" do
         get :new
-        assigns(:question).should_not be_valid
+        assigns(:question).should be_nil
         response.should redirect_to(new_user_session_url)
       end
     end
@@ -344,7 +344,7 @@ describe QuestionsController do
       describe "with valid params" do
         it "assigns a newly created question as @question" do
           post :create, question: @attrs
-          assigns(:question).should_not be_valid
+          assigns(:question).should be_nil
         end
 
         it "should be forbidden" do
@@ -356,7 +356,7 @@ describe QuestionsController do
       describe "with invalid params" do
         it "assigns a newly created but unsaved question as @question" do
           post :create, question: @invalid_attrs
-          assigns(:question).should_not be_valid
+          assigns(:question).should be_nil
         end
 
         it "should be forbidden" do

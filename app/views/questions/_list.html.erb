@@ -50,10 +50,10 @@
         <% end %>
       </td>
       <td>
-        <%- if can? :update, question -%>
+        <%- if policy(question).update? -%>
           <%= link_to t('page.edit'), edit_question_path(question) -%>
         <% end %>
-        <%- if can? :delete, question -%>
+        <%- if policy(question).destroy? -%>
           <%= link_to t('page.destroy'), question, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
         <%- end -%>
       </td>

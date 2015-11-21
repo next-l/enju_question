@@ -1,10 +1,9 @@
-# -*- encoding: utf-8 -*-
 class AnswersController < ApplicationController
-  load_and_authorize_resource except: :index
-  authorize_resource only: :index
-  before_filter :store_location, only: [:index, :show, :new, :edit]
-  before_filter :get_user, except: [:edit]
-  before_filter :get_question
+  before_action :store_location, only: [:index, :show, :new, :edit]
+  before_action :set_answer, only: [:show, :edit, :update, :destroy]
+  before_action :check_policy, only: [:index, :new, :create]
+  before_action :get_user, except: [:edit]
+  before_action :get_question
 
   # GET /answers
   # GET /answers.json
@@ -103,11 +102,9 @@ class AnswersController < ApplicationController
         flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.answer'))
         format.html { redirect_to @answer }
         format.json { render json: @answer, status: :created, location: answer_url(@answer) }
-        format.mobile { redirect_to question_url(@answer.question) }
       else
         format.html { render action: "new" }
         format.json { render json: @answer.errors, status: :unprocessable_entity }
-        format.mobile { render action: "new" }
       end
     end
   end
@@ -139,6 +136,15 @@ class AnswersController < ApplicationController
   end
 
   private
+  def set_answer
+    @answer = Answer.find(params[:id])
+    authorize @answer
+  end
+
+  def check_policy
+    authorize Answer
+  end
+
   def answer_params
     params.require(:answer).permit(
       :question_id, :body, :item_identifier_list, :url_list

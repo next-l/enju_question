@@ -189,7 +189,8 @@ describe AnswersController do
 
       it "assigns the requested answer as @answer" do
         get :new
-        assigns(:answer).should_not be_valid
+        assigns(:answer).should be_nil
+        response.should redirect_to questions_url
       end
     end
 
@@ -198,7 +199,8 @@ describe AnswersController do
 
       it "assigns the requested answer as @answer" do
         get :new
-        assigns(:answer).should_not be_valid
+        assigns(:answer).should be_nil
+        response.should redirect_to questions_url
       end
     end
 
@@ -207,7 +209,8 @@ describe AnswersController do
 
       it "should assign the requested answer as @answer" do
         get :new
-        assigns(:answer).should_not be_valid
+        assigns(:answer).should be_nil
+        response.should redirect_to questions_url
       end
 
       it "should get new template with question_id" do
@@ -220,7 +223,7 @@ describe AnswersController do
     describe "When not logged in" do
       it "should not assign the requested answer as @answer" do
         get :new
-        assigns(:answer).should_not be_valid
+        assigns(:answer).should be_nil
         response.should redirect_to(new_user_session_url)
       end
     end
@@ -329,7 +332,7 @@ describe AnswersController do
       describe "with valid params" do
         it "assigns a newly created answer as @answer" do
           post :create, answer: @attrs
-          assigns(:answer).should_not be_valid
+          assigns(:answer).should be_nil
         end
 
         it "redirects to the created answer" do
@@ -341,7 +344,7 @@ describe AnswersController do
       describe "with invalid params" do
         it "assigns a newly created but unsaved answer as @answer" do
           post :create, answer: @invalid_attrs
-          assigns(:answer).should_not be_valid
+          assigns(:answer).should be_nil
         end
 
         it "re-renders the 'new' template" do

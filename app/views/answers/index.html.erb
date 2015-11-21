@@ -22,8 +22,10 @@
     <td><%= l(answer.created_at) -%></td>
     <td><%= l(answer.updated_at) -%></td>
     <td>
-      <%- if can? :delete, answer -%>
+      <%- if policy(answer).update? -%>
         <%= link_to t('page.edit'), edit_answer_path(answer) -%>
+      <%- end -%>
+      <%- if policy(answer).destroy? -%>
         <%= link_to t('page.destroy'), answer, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
       <%- end -%>
     </td>

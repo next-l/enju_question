@@ -16,7 +16,7 @@
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <%= render 'solved_facet' -%>
   <ul>
-  <%- if can? :create, Question -%>
+  <%- if policy(Question).create? -%>
     <li><%= link_to t('question.my'), user_questions_path(current_user) -%></li>
     <li><%= link_to t('page.new', model: t('activerecord.models.question')), new_question_path -%></li>
   <%- end -%>

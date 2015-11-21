@@ -53,7 +53,7 @@
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
     <li><%= link_to t('question.answer_question'), new_question_answer_path(@question) -%></li>
-    <%- if can? :update, @question -%>
+    <%- if policy(@question).update? -%>
       <li><%= link_to t('page.edit'), edit_question_path(@question) -%></li>
     <%- end -%>
     <li><%= back_to_index(flash[:page_info]) -%></li>

@@ -1,9 +1,9 @@
-# -*- encoding: utf-8 -*-
 class QuestionsController < ApplicationController
-  before_filter :store_location, only: [:index, :show, :new, :edit]
-  load_and_authorize_resource
-  before_filter :get_user, except: [:edit]
-  after_filter :solr_commit, only: [:create, :update, :destroy]
+  before_action :store_location, only: [:index, :show, :new, :edit]
+  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :check_policy, only: [:index, :new, :create]
+  before_action :get_user, except: [:edit]
+  after_action :solr_commit, only: [:create, :update, :destroy]
 
   # GET /questions
   # GET /questions.json
@@ -171,6 +171,15 @@ class QuestionsController < ApplicationController
   end
 
   private
+  def set_question
+    @question = Question.find(params[:id])
+    authorize @question
+  end
+
+  def check_policy
+    authorize Question
+  end
+
   def question_params
     params.require(:question).permit(:body, :shared, :solved, :note)
   end
