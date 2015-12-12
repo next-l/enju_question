@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
-  enju_leaf
-  enju_library
+  include EnjuLeaf::Controller
+  include EnjuBiblio::Controller
+  include EnjuLibrary::Controller
   enju_question
   after_action :verify_authorized
 
