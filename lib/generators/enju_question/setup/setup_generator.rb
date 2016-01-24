@@ -3,7 +3,21 @@ class EnjuQuestion::SetupGenerator < Rails::Generators::Base
 
   def setup
     rake("enju_question_engine:install:migrations")
-    inject_into_file 'app/models/user.rb',
-      "  enju_question_user_model\n", :after => "enju_leaf_user_model\n"
+    inject_into_class "app/models/user.rb", User do
+      <<"EOS"
+  include EnjuQuestion::EnjuUser
+EOS
+    end
+    inject_into_class "app/controllers/application.rb", User do
+      <<"EOS"
+  include EnjuQuestion::Controller
+EOS
+    end
+    append_to_file("config/initializers/enju_leaf.rb" do
+      <<"EOS"
+Manifestation.include(EnjuQuestion::EnjuManifestation)
+Item.include(EnjuQuestion::EnjuItem)
+EOS
+    end
   end
 end
