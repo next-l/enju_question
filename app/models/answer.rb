@@ -46,12 +46,11 @@ end
 #  user_id              :integer          not null
 #  question_id          :integer          not null
 #  body                 :text
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
+#  created_at           :datetime
+#  updated_at           :datetime
 #  deleted_at           :datetime
 #  shared               :boolean          default(TRUE), not null
-#  state                :string(255)
+#  state                :string
 #  item_identifier_list :text
 #  url_list             :text
 #
-
