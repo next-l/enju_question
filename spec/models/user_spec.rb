@@ -1,7 +1,8 @@
-# -*- encoding: utf-8 -*-
 require 'rails_helper'
 
 describe User do
+  fixtures :all
+
   it "should reset answer_feed_token" do
     users(:user1).reset_answer_feed_token
     users(:user1).answer_feed_token.should be_truthy
