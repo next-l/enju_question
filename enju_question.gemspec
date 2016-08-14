@@ -19,9 +19,9 @@ Gem::Specification.new do |s|
   s.add_dependency "enju_bookmark", "~> 0.2.0.beta.3"
   s.add_dependency "acts-as-taggable-on", "~> 4.0"
 
-  s.add_development_dependency "enju_leaf", "~> 1.2.0.beta.2"
+  s.add_development_dependency "enju_leaf", "~> 1.2.0.beta.3"
   s.add_development_dependency "enju_ndl", "~> 0.2.0.beta.2"
-  s.add_development_dependency "globalize"
+  s.add_development_dependency "globalize", "~> 5.0.1"
   s.add_development_dependency "globalize-accessors"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"
@@ -35,4 +35,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "annotate"
   s.add_development_dependency "sunspot-rails-tester"
   s.add_development_dependency "coveralls"
+  s.add_development_dependency "appraisal"
 end
