@@ -41,7 +41,7 @@
         <%= t('question.last_answered_at') %>: <%= l(question.answers.last.updated_at) if question.answers.last -%>
       </td>
       <td>
-        <%= link_to image_tag('icons/comments.png', alt: t('answer.count'), size: '16x16'), question %>
+        <%= link_to image_tag('icons/comments.png', alt: t('answer.count'), size: '16x16', class: 'enju_icon'), question %>
         <%= link_to question.answers.size, question -%>
         <%- if question.solved %>
           <%= t('question.solved') %>
