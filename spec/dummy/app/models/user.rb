@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, #, :validatable
     :lockable, :lock_strategy => :none, :unlock_strategy => :none
 
-  include EnjuLeaf::EnjuUser
-  enju_question_user_model
+  include EnjuSeed::EnjuUser
+  include EnjuQuestion::EnjuUser
 end
+
+Manifestation.include(EnjuQuestion::EnjuManifestation)
+Item.include(EnjuQuestion::EnjuItem)
