@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:show, :edit, :update, :destroy]
   before_action :check_policy, only: [:index, :new, :create]
-  before_action :get_user, except: [:edit]
+  before_action :set_user, except: [:edit]
   before_action :set_question
 
   # GET /answers
