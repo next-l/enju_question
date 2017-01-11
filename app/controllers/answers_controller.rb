@@ -1,10 +1,8 @@
-# -*- encoding: utf-8 -*-
 class AnswersController < ApplicationController
-  before_action :store_location, only: [:index, :show, :new, :edit]
   before_action :set_answer, only: [:show, :edit, :update, :destroy]
   before_action :check_policy, only: [:index, :new, :create]
-  before_action :get_user, except: [:edit]
-  before_action :get_question
+  before_action :set_user, except: [:edit]
+  before_action :set_question
 
   # GET /answers
   # GET /answers.json
@@ -75,7 +73,6 @@ class AnswersController < ApplicationController
 
   # GET /answers/new
   def new
-    @answer = Answer.new
     if @question
       @answer = current_user.answers.new
       @answer.question = @question

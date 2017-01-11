@@ -4,5 +4,8 @@ class User < ActiveRecord::Base
     :lockable, :lock_strategy => :none, :unlock_strategy => :none
 
   include EnjuSeed::EnjuUser
-  enju_question_user_model
+  include EnjuQuestion::EnjuUser
 end
+
+Manifestation.include(EnjuQuestion::EnjuManifestation)
+Item.include(EnjuQuestion::EnjuItem)
