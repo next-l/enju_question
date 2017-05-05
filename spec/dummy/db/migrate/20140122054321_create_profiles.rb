@@ -1,4 +1,4 @@
-class CreateProfiles < ActiveRecord::Migration
+class CreateProfiles < ActiveRecord::Migration[5.0]
   def change
     if ENV['ENJU_ID_TYPE'] == 'uuid'
       options = {id: :uuid, default: 'gen_random_uuid()'}

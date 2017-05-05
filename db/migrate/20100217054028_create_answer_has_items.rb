@@ -1,4 +1,4 @@
-class CreateAnswerHasItems < ActiveRecord::Migration
+class CreateAnswerHasItems < ActiveRecord::Migration[5.0]
   def self.up
     create_table :answer_has_items do |t|
       t.integer :answer_id
