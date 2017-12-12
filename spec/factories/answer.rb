@@ -1,7 +1,7 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :answer do |f|
     f.sequence(:body){|n| "answer_#{n}"}
-    f.question_id{FactoryGirl.create(:question).id}
-    f.user_id{FactoryGirl.create(:user).id}
+    f.question_id{FactoryBot.create(:question).id}
+    f.user_id{FactoryBot.create(:user).id}
   end
 end

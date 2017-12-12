@@ -87,7 +87,7 @@ describe QuestionsController do
 
   describe 'GET show' do
     before(:each) do
-      @question = FactoryGirl.create(:question)
+      @question = FactoryBot.create(:question)
     end
 
     describe 'When logged in as Administrator' do
@@ -194,7 +194,7 @@ describe QuestionsController do
 
   describe 'GET edit' do
     before(:each) do
-      @question = FactoryGirl.create(:question)
+      @question = FactoryBot.create(:question)
     end
 
     describe 'When logged in as Administrator' do
@@ -251,7 +251,7 @@ describe QuestionsController do
 
   describe 'POST create' do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:question)
+      @attrs = FactoryBot.attributes_for(:question)
       @invalid_attrs = { body: '' }
     end
 
@@ -369,8 +369,8 @@ describe QuestionsController do
 
   describe 'PUT update' do
     before(:each) do
-      @question = FactoryGirl.create(:question)
-      @attrs = FactoryGirl.attributes_for(:question)
+      @question = FactoryBot.create(:question)
+      @attrs = FactoryBot.attributes_for(:question)
       @invalid_attrs = { body: '' }
     end
 
@@ -497,7 +497,7 @@ describe QuestionsController do
 
   describe 'DELETE destroy' do
     before(:each) do
-      @question = FactoryGirl.create(:question)
+      @question = FactoryBot.create(:question)
     end
 
     describe 'When logged in as Administrator' do
