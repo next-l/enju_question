@@ -41,25 +41,25 @@ describe QuestionsController do
 
       it 'should get my index feed' do
         get :index, params: { format: :rss }
-        response.should be_success
+        response.should be_successful
         assigns(:questions).should eq Question.public_questions.order(:updated_at).page(1)
       end
 
       it 'should redirect_to my index feed if user_id is specified' do
         get :index, params: { user_id: users(:user1).username, format: 'rss' }
-        response.should be_success
+        response.should be_successful
         assigns(:questions).should eq users(:user1).questions
       end
 
       it "should get other user's index" do
         get :index, params: { user_id: users(:user2).username }
-        response.should be_success
+        response.should be_successful
         assigns(:questions).should_not be_empty
       end
 
       it "should get other user's index feed" do
         get :index, params: { user_id: users(:user2).username, format: 'rss' }
-        response.should be_success
+        response.should be_successful
         assigns(:questions).should_not be_empty
       end
     end
@@ -72,14 +72,14 @@ describe QuestionsController do
 
       it 'should get index with query', vcr: true do
         get :index, params: { query: 'Yahoo' }
-        response.should be_success
+        response.should be_successful
         assigns(:questions).should_not be_nil
         assigns(:crd_results).should_not be_nil
       end
 
       it 'should render crd_xml template', vcr: true do
         get :index, params: { query: 'Yahoo', mode: 'crd', format: :xml }
-        response.should be_success
+        response.should be_successful
         response.should render_template('questions/index_crd')
       end
     end
@@ -118,7 +118,7 @@ describe QuestionsController do
 
       it "should show other user's question" do
         get :show, params: { id: 5 }
-        response.should be_success
+        response.should be_successful
       end
 
       it 'should not show missing question' do
@@ -131,13 +131,13 @@ describe QuestionsController do
       it 'should show my question' do
         get :show, params: { id: 3 }
         assigns(:question).should eq Question.find(3)
-        response.should be_success
+        response.should be_successful
       end
 
       it "should show other user's shared question" do
         get :show, params: { id: 5 }
         assigns(:question).should eq Question.find(5)
-        response.should be_success
+        response.should be_successful
       end
     end
 
@@ -149,7 +149,7 @@ describe QuestionsController do
 
       it 'should show crd xml' do
         get :show, params: { id: @question.id, mode: 'crd', format: :xml }
-        response.should be_success
+        response.should be_successful
         response.should render_template('questions/show_crd')
       end
     end
@@ -237,7 +237,7 @@ describe QuestionsController do
 
       it 'should edit my question' do
         get :edit, params: { id: 3 }
-        response.should be_success
+        response.should be_successful
       end
     end
 
@@ -402,7 +402,7 @@ describe QuestionsController do
       it 'should not update my question without body' do
         put :update, params: { id: 3, question: { body: '' } }
         assigns(:question).should_not be_valid
-        response.should be_success
+        response.should be_successful
       end
 
       it 'should not update missing question' do
