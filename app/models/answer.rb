@@ -28,7 +28,7 @@ class Answer < ActiveRecord::Base
   end
 
   def add_urls
-    list = url_list.to_s.strip.split.map{|u| Manifestation.where(:access_address => Addressable::URI.parse(u).normalize.to_s).first}.compact.map{|m| m.web_item}.compact.uniq
+    list = url_list.to_s.strip.split.map{|u| Manifestation.where(access_address: Addressable::URI.parse(u).normalize.to_s).first}.compact.map{|m| m.web_item}.compact.uniq
   end
 
   def check_url_list

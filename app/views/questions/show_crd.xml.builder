@@ -1,4 +1,4 @@
-xml.instruct! :xml, :version=>"1.0" , :encoding => 'UTF-8'
+xml.instruct! :xml, version: "1.0" , encoding: 'UTF-8'
 xml.CRD('version' => "1.0"){
   xml.REFERENCE{
     xml.QUESTION @question.body
@@ -13,7 +13,7 @@ xml.CRD('version' => "1.0"){
     end
     # xml.KEYWORD @question.tags.collect(&:name).join(' ')
     xml.KEYWORD @question.tags.join(' ')
-    xml.CLASS :type => 'NDC'
+    xml.CLASS type: 'NDC'
     xml.tag! 'RES-TYPE'
     xml.tag! 'CON-TYPE'
     @question.answers.each do

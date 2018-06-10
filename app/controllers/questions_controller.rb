@@ -74,7 +74,7 @@ class QuestionsController < ApplicationController
 
     if query.present?
       begin
-        @crd_results = Question.search_crd(:query_01 => query, :page => params[:crd_page]).per(5)
+        @crd_results = Question.search_crd(query_01: query, page: params[:crd_page]).per(5)
       rescue Timeout::Error
         @crd_results = Kaminari::paginate_array([]).page(1)
       end
@@ -88,7 +88,7 @@ class QuestionsController < ApplicationController
           render template: 'questions/index_crd'
           convert_charset
         else
-          render :xml => @questions
+          render xml: @questions
         end
       }
       format.rss  { render layout: false }
@@ -108,7 +108,7 @@ class QuestionsController < ApplicationController
           render template: 'questions/show_crd'
           convert_charset
         else
-          render :xml => @question
+          render xml: @question
         end
       }
     end

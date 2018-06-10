@@ -1,9 +1,9 @@
-xml.instruct! :xml, :version=>"1.0"
+xml.instruct! :xml, version: "1.0"
 xml.rss('version' => "2.0",
   'xmlns:opensearch' => "http://a9.com/-/spec/opensearch/1.1/",
   'xmlns:atom' => "http://www.w3.org/2005/Atom"){
   xml.channel{
-    xml.title t('answer.user_answer', :login_name => @user.username)
+    xml.title t('answer.user_answer', login_name: @user.username)
     xml.link "#{request.protocol}#{request.host_with_port}" + user_answers_path(@user)
     xml.description "Next-L Enju, an open source integrated library system developed by Project Next-L"
     xml.language @locale.to_s
@@ -24,7 +24,7 @@ xml.rss('version' => "2.0",
         # rfc822
         xml.pubDate answer.created_at.utc.rfc822
         xml.link "#{request.protocol}#{request.host_with_port}" + answer_path(answer)
-        xml.guid "#{request.protocol}#{request.host_with_port}" + answer_path(answer), :isPermaLink => "true"
+        xml.guid "#{request.protocol}#{request.host_with_port}" + answer_path(answer), isPermaLink: "true"
       end
     end
   }
