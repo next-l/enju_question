@@ -96,7 +96,7 @@ describe AnswersController do
       login_fixture_admin
 
       it "assigns the requested answer as @answer" do
-        answer = FactoryGirl.create(:answer)
+        answer = FactoryBot.create(:answer)
         get :show, params: { id: answer.id }
         assigns(:answer).should eq(answer)
       end
@@ -106,7 +106,7 @@ describe AnswersController do
       login_fixture_user
 
       it "assigns the requested answer as @answer" do
-        answer = FactoryGirl.create(:answer)
+        answer = FactoryBot.create(:answer)
         get :show, params: { id: answer.id }
         assigns(:answer).should eq(answer)
       end
@@ -116,7 +116,7 @@ describe AnswersController do
       login_fixture_user
 
       it "assigns the requested answer as @answer" do
-        answer = FactoryGirl.create(:answer)
+        answer = FactoryBot.create(:answer)
         get :show, params: { id: answer.id }
         assigns(:answer).should eq(answer)
       end
@@ -164,7 +164,7 @@ describe AnswersController do
 
     describe "When not logged in" do
       it "assigns the requested answer as @answer" do
-        answer = FactoryGirl.create(:answer)
+        answer = FactoryBot.create(:answer)
         get :show, params: { id: answer.id }
         assigns(:answer).should eq(answer)
       end
@@ -234,7 +234,7 @@ describe AnswersController do
       login_fixture_admin
 
       it "assigns the requested answer as @answer" do
-        answer = FactoryGirl.create(:answer)
+        answer = FactoryBot.create(:answer)
         get :edit, params: { id: answer.id }
         assigns(:answer).should eq(answer)
       end
@@ -244,7 +244,7 @@ describe AnswersController do
       login_fixture_user
 
       it "assigns the requested answer as @answer" do
-        answer = FactoryGirl.create(:answer)
+        answer = FactoryBot.create(:answer)
         get :edit, params: { id: answer.id }
         assigns(:answer).should eq(answer)
       end
@@ -254,7 +254,7 @@ describe AnswersController do
       login_fixture_user
 
       it "assigns the requested answer as @answer" do
-        answer = FactoryGirl.create(:answer)
+        answer = FactoryBot.create(:answer)
         get :edit, params: { id: answer.id }
         response.should be_forbidden
       end
@@ -294,7 +294,7 @@ describe AnswersController do
 
     describe "When not logged in" do
       it "should not assign the requested answer as @answer" do
-        answer = FactoryGirl.create(:answer)
+        answer = FactoryBot.create(:answer)
         get :edit, params: { id: answer.id }
         response.should redirect_to(new_user_session_url)
       end
@@ -303,7 +303,7 @@ describe AnswersController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:answer)
+      @attrs = FactoryBot.attributes_for(:answer)
       @invalid_attrs = { body: '' }
     end
 
