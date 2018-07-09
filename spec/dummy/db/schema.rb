@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160814165332) do
+ActiveRecord::Schema.define(version: 20180709023040) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer "basket_id"
@@ -213,6 +213,8 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.integer "bookmark_stat_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean "most_recent", null: false
+    t.index ["bookmark_stat_id", "most_recent"], name: "index_bookmark_stat_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["bookmark_stat_id"], name: "index_bookmark_stat_transitions_on_bookmark_stat_id"
     t.index ["sort_key", "bookmark_stat_id"], name: "index_bookmark_stat_transitions_on_sort_key_and_stat_id", unique: true
   end
@@ -223,10 +225,8 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.datetime "started_at"
     t.datetime "completed_at"
     t.text "note"
-    t.string "state"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["state"], name: "index_bookmark_stats_on_state"
   end
 
   create_table "bookmarks", force: :cascade do |t|
@@ -985,18 +985,23 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.integer "taggable_id"
     t.string "tagger_type"
     t.integer "tagger_id"
-    t.string "context"
+    t.string "context", limit: 128
     t.datetime "created_at"
+    t.index ["context"], name: "index_taggings_on_context"
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
     t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
+    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
+    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
+    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
+    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
   end
 
   create_table "tags", force: :cascade do |t|
     t.string "name"
-    t.string "name_transcription"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer "taggings_count", default: 0
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "user_export_file_transitions", force: :cascade do |t|
@@ -1095,7 +1100,6 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.string "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean "share_bookmarks"
     t.string "answer_feed_token"
     t.string "username"
     t.datetime "deleted_at"
