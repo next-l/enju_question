@@ -14,6 +14,5 @@ gemspec
 # To use debugger
 # gem 'debugger'
 gem 'enju_leaf', github: 'next-l/enju_leaf', branch: '1.3'
-gem 'enju_ndl', github: 'next-l/enju_ndl', branch: '1.3'
 gem 'enju_bookmark', github: 'next-l/enju_bookmark', branch: '1.3'
 gem 'rails-controller-testing'
