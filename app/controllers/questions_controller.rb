@@ -145,7 +145,7 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.json
   def update
     respond_to do |format|
-      if @question.update_attributes(question_params)
+      if @question.update(question_params)
         flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.question'))
         format.html { redirect_to @question }
         format.json { head :no_content }

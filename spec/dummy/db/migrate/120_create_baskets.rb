@@ -3,7 +3,7 @@ class CreateBaskets < ActiveRecord::Migration[4.2]
     create_table :baskets do |t|
       t.integer :user_id
       t.text :note
-      t.integer :lock_version, :default => 0, :null => false
+      t.integer :lock_version, default: 0, null: false
 
       t.timestamps
     end

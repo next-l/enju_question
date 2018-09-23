@@ -13,6 +13,6 @@ class CreateUserImportFileTransitions < ActiveRecord::Migration[4.2]
     end
 
     add_index :user_import_file_transitions, :user_import_file_id
-    add_index :user_import_file_transitions, [:sort_key, :user_import_file_id], unique: true, name: "index_user_import_file_transitions_on_sort_key_and_file_id"
+    add_index :user_import_file_transitions, %i[sort_key user_import_file_id], unique: true, name: "index_user_import_file_transitions_on_sort_key_and_file_id"
   end
 end

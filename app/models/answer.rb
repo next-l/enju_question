@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 class Answer < ActiveRecord::Base
   default_scope { order('answers.id ASC') }
   #scope :public_answers, where(:shared => true)

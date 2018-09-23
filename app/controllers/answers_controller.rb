@@ -112,7 +112,7 @@ class AnswersController < ApplicationController
   # PUT /answers/1.json
   def update
     respond_to do |format|
-      if @answer.update_attributes(answer_update_params)
+      if @answer.update(answer_update_params)
         flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.answer'))
         format.html { redirect_to @answer }
         format.json { head :no_content }
