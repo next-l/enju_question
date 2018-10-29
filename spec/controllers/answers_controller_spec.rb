@@ -38,7 +38,7 @@ describe AnswersController do
 
       it "should get to my index if user_id is specified" do
         get :index, params: { user_id: users(:user1).username }
-        response.should be_success
+        response.should be_successful
         assigns(:answers).should eq users(:user1).answers.order('answers.id DESC').page(1)
       end
 
@@ -49,7 +49,7 @@ describe AnswersController do
 
       it "should get my index feed" do
         get :index, params: { user_id: users(:user1).username, format: 'rss' }
-        response.should be_success
+        response.should be_successful
         assigns(:answers).should_not be_empty
       end
 
@@ -69,12 +69,12 @@ describe AnswersController do
       it "should not get index with other user's question_id" do
         get :index, params: { question_id: 1 }
         assigns(:answers).should eq assigns(:question).answers.order('answers.id DESC').page(1)
-        response.should be_success
+        response.should be_successful
       end
 
       it "should get other user's index if question is shared" do
         get :index, params: { question_id: 5 }
-        response.should be_success
+        response.should be_successful
         assigns(:answers).should eq assigns(:question).answers.order('answers.id DESC').page(1)
       end
 
@@ -85,7 +85,7 @@ describe AnswersController do
 
       it "should get other user's index feed if question is shared" do
         get :index, params: { question_id: 5, format: 'rss' }
-        response.should be_success
+        response.should be_successful
         assigns(:answers).should eq assigns(:question).answers.order('answers.id DESC').page(1)
       end
     end
@@ -172,7 +172,7 @@ describe AnswersController do
       it "should show public_answer" do
         get :show, params: { id: 1, question_id: 1 }
         assigns(:answer).should eq(Answer.find(1))
-        response.should be_success
+        response.should be_successful
       end
 
       it "should not show private answer" do
@@ -216,7 +216,7 @@ describe AnswersController do
       it "should get new template with question_id" do
         get :new, params: { question_id: 1 }
         assigns(:answer).should_not be_valid
-        response.should be_success
+        response.should be_successful
       end
     end
 
@@ -261,7 +261,7 @@ describe AnswersController do
 
       it "should edit my answer without user_id" do
         get :edit, params: { id: 3, question_id: 1 }
-        response.should be_success
+        response.should be_successful
       end
 
       it "should not edit other answer without user_id" do
@@ -271,7 +271,7 @@ describe AnswersController do
 
       it "should edit answer without question_id" do
         get :edit, params: { id: 3, user_id: users(:user1).username }
-        response.should be_success
+        response.should be_successful
       end
 
       it "should not edit missing answer" do
@@ -283,7 +283,7 @@ describe AnswersController do
 
       it "should edit my answer" do
         get :edit, params: { id: 3, user_id: users(:user1).username, question_id: 1 }
-        response.should be_success
+        response.should be_successful
       end
 
       it "should not edit other user's answer" do
