@@ -1,4 +1,4 @@
-class CreateQuestions < ActiveRecord::Migration[4.2]
+class CreateQuestions < ActiveRecord::Migration[5.2]
   def self.up
     create_table :questions do |t|
       t.integer :user_id, :null => false

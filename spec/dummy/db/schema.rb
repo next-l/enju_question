@@ -168,22 +168,22 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
     t.index ["required_role_id"], name: "index_agents_on_required_role_id"
   end
 
-  create_table "answer_has_items", id: :serial, force: :cascade do |t|
+  create_table "answer_has_items", force: :cascade do |t|
     t.integer "answer_id"
     t.integer "item_id"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["answer_id"], name: "index_answer_has_items_on_answer_id"
     t.index ["item_id"], name: "index_answer_has_items_on_item_id"
   end
 
-  create_table "answers", id: :serial, force: :cascade do |t|
+  create_table "answers", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "question_id", null: false
     t.text "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.boolean "shared", default: true, null: false
     t.string "state"
@@ -746,7 +746,7 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
     t.index ["user_number"], name: "index_profiles_on_user_number", unique: true
   end
 
-  create_table "questions", id: :serial, force: :cascade do |t|
+  create_table "questions", force: :cascade do |t|
     t.integer "user_id", null: false
     t.text "body"
     t.boolean "shared", default: true, null: false
@@ -755,8 +755,8 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
     t.string "state"
     t.boolean "solved", default: false, null: false
     t.text "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 

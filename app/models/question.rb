@@ -68,7 +68,7 @@ end
 #
 # Table name: questions
 #
-#  id            :integer          not null, primary key
+#  id            :bigint(8)        not null, primary key
 #  user_id       :integer          not null
 #  body          :text
 #  shared        :boolean          default(TRUE), not null
@@ -77,6 +77,6 @@ end
 #  state         :string
 #  solved        :boolean          default(FALSE), not null
 #  note          :text
-#  created_at    :datetime
-#  updated_at    :datetime
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
