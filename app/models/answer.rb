@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 class Answer < ActiveRecord::Base
   default_scope { order('answers.id ASC') }
   #scope :public_answers, where(:shared => true)
@@ -28,7 +27,7 @@ class Answer < ActiveRecord::Base
   end
 
   def add_urls
-    list = url_list.to_s.strip.split.map{|u| Manifestation.where(access_address: Addressable::URI.parse(u).normalize.to_s).first}.compact.map{|m| m.web_item}.compact.uniq
+    list = url_list.to_s.strip.split.map{|u| Manifestation.where(:access_address => Addressable::URI.parse(u).normalize.to_s).first}.compact.map{|m| m.web_item}.compact.uniq
   end
 
   def check_url_list
@@ -46,8 +45,8 @@ end
 #  user_id              :integer          not null
 #  question_id          :integer          not null
 #  body                 :text
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
+#  created_at           :datetime
+#  updated_at           :datetime
 #  deleted_at           :datetime
 #  shared               :boolean          default(TRUE), not null
 #  state                :string

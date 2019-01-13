@@ -3,12 +3,12 @@ require 'rails_helper'
 describe User do
   fixtures :all
 
-  it 'should reset answer_feed_token' do
+  it "should reset answer_feed_token" do
     users(:user1).reset_answer_feed_token
     users(:user1).answer_feed_token.should be_truthy
   end
 
-  it 'should delete answer_feed_token' do
+  it "should delete answer_feed_token" do
     users(:user1).delete_answer_feed_token
     users(:user1).answer_feed_token.should be_nil
   end
@@ -58,3 +58,4 @@ end
 #  save_search_history      :boolean         default(FALSE), not null
 #  answer_feed_token        :string(255)
 #
+

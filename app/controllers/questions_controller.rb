@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_action :check_policy, only: [:index, :new, :create]
-  before_action :set_user, except: [:edit]
+  before_action :get_user, except: [:edit]
 
   # GET /questions
   # GET /questions.json
@@ -74,7 +74,7 @@ class QuestionsController < ApplicationController
 
     if query.present?
       begin
-        @crd_results = Question.search_crd(query_01: query, page: params[:crd_page]).per(5)
+        @crd_results = Question.search_crd(:query_01 => query, :page => params[:crd_page]).per(5)
       rescue Timeout::Error
         @crd_results = Kaminari::paginate_array([]).page(1)
       end
@@ -88,7 +88,7 @@ class QuestionsController < ApplicationController
           render template: 'questions/index_crd'
           convert_charset
         else
-          render xml: @questions
+          render :xml => @questions
         end
       }
       format.rss  { render layout: false }
@@ -108,7 +108,7 @@ class QuestionsController < ApplicationController
           render template: 'questions/show_crd'
           convert_charset
         else
-          render xml: @question
+          render :xml => @question
         end
       }
     end
@@ -145,7 +145,7 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.json
   def update
     respond_to do |format|
-      if @question.update_attributes(question_params)
+      if @question.update(question_params)
         flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.question'))
         format.html { redirect_to @question }
         format.json { head :no_content }

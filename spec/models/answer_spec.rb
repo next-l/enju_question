@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
-require 'spec_helper'
+require 'rails_helper'
 
 describe Answer do
-  # pending "add some examples to (or delete) #{__FILE__}"
+  #pending "add some examples to (or delete) #{__FILE__}"
+
 end
 
 # == Schema Information
@@ -13,8 +14,8 @@ end
 #  user_id              :integer          not null
 #  question_id          :integer          not null
 #  body                 :text
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
+#  created_at           :datetime
+#  updated_at           :datetime
 #  deleted_at           :datetime
 #  shared               :boolean          default(TRUE), not null
 #  state                :string

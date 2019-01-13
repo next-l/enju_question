@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
-require 'spec_helper'
+require 'rails_helper'
 
 describe AnswerHasItem do
-  # pending "add some examples to (or delete) #{__FILE__}"
+  #pending "add some examples to (or delete) #{__FILE__}"
+
 end
 
 # == Schema Information
@@ -10,9 +11,9 @@ end
 # Table name: answer_has_items
 #
 #  id         :integer          not null, primary key
-#  answer_id  :integer          not null
-#  item_id    :uuid             not null
+#  answer_id  :integer
+#  item_id    :integer
 #  position   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  created_at :datetime
+#  updated_at :datetime
 #

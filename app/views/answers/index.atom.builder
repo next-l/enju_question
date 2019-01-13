@@ -1,6 +1,6 @@
 atom_feed(url: answers_url(format: :atom)) do |feed|
   if @user
-    feed.title t('answer.user_answer', login_name: @user.username)
+    feed.title t('answer.user_answer', :login_name => @user.username)
   else
     feed.title t('answer.library_group_answer', library_group_name: @library_group.display_name.localize)
   end

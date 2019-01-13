@@ -13,7 +13,7 @@ EOS
   include EnjuQuestion::Controller
 EOS
     end
-    append_to_file("config/initializers/enju_leaf.rb") do
+    append_to_file("app/models/user.rb") do
       <<"EOS"
 Manifestation.include(EnjuQuestion::EnjuManifestation)
 Item.include(EnjuQuestion::EnjuItem)

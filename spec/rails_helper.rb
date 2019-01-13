@@ -1,5 +1,7 @@
 require 'simplecov'
+require 'coveralls'
 SimpleCov.start 'rails'
+Coveralls.wear!
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
@@ -7,7 +9,6 @@ require File.expand_path("../dummy/config/environment", __FILE__)
 require 'rspec/rails'
 require 'factory_bot'
 require 'vcr'
-require 'sunspot-rails-tester'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -32,18 +33,6 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   config.extend ControllerMacros, :type => :controller
-
-  $original_sunspot_session = Sunspot.session
-
-  config.before do
-    Sunspot.session = Sunspot::Rails::StubSessionProxy.new($original_sunspot_session)
-  end
-
-  config.before :each, :solr => true do
-    Sunspot::Rails::Tester.start_original_sunspot_session
-    Sunspot.session = $original_sunspot_session
-    Sunspot.remove_all!
-  end
 
   config.infer_spec_type_from_file_location!
 end

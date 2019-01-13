@@ -1,11 +1,17 @@
-class CreateAnswerHasItems < ActiveRecord::Migration[5.0]
-  def change
+class CreateAnswerHasItems < ActiveRecord::Migration[4.2]
+  def self.up
     create_table :answer_has_items do |t|
-      t.references :answer, foreign_key: true, null: false
-      t.references :item, foreign_key: true, null: false, type: :uuid
+      t.integer :answer_id
+      t.integer :item_id
       t.integer :position
 
       t.timestamps
     end
+    add_index :answer_has_items, :answer_id
+    add_index :answer_has_items, :item_id
+  end
+
+  def self.down
+    drop_table :answer_has_items
   end
 end

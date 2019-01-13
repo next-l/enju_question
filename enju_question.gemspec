@@ -14,22 +14,19 @@ Gem::Specification.new do |s|
   s.description = "Question and answer management for Next-L Enju"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
+  s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/db/*.sqlite3"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/**/*"] - Dir["spec/dummy/tmp/*"]
 
-  s.add_dependency "simple_form"
-  s.add_dependency "acts-as-taggable-on", "~> 5.0"
-  s.add_dependency "rails_autolink"
+  s.add_dependency "enju_bookmark", "~> 0.4.0.beta.1"
 
+  s.add_development_dependency "enju_leaf", "~> 1.4.0.beta.1"
+  s.add_development_dependency "enju_ndl", "~> 0.4.0.beta.1"
   s.add_development_dependency "pg"
-  s.add_development_dependency "rspec-rails", "~> 3.5"
+  s.add_development_dependency "rspec-rails", "~> 3.7"
   s.add_development_dependency "factory_bot_rails"
   s.add_development_dependency "vcr", "~> 4.0"
-  #s.add_development_dependency "enju_leaf", "~> 1.2.0"
-  #s.add_development_dependency "enju_ndl", "~> 0.2.0"
-  s.add_development_dependency "sunspot_solr", "2.2.0"
+  s.add_development_dependency "sunspot_solr", "~> 2.3"
   s.add_development_dependency "webmock"
   s.add_development_dependency "simplecov"
-  s.add_development_dependency "sunspot-rails-tester"
-  s.add_development_dependency "redis-rails"
-  s.add_development_dependency "resque"
+  s.add_development_dependency "annotate"
+  s.add_development_dependency "coveralls"
 end

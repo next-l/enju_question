@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 class Question < ActiveRecord::Base
   default_scope { order('id DESC') }
   scope :public_questions, -> {where(shared: true)}
@@ -78,6 +77,6 @@ end
 #  state         :string
 #  solved        :boolean          default(FALSE), not null
 #  note          :text
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  created_at    :datetime
+#  updated_at    :datetime
 #

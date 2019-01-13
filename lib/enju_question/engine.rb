@@ -1,5 +1,5 @@
+require 'enju_bookmark'
 require 'acts-as-taggable-on'
-require 'enju_ndl'
 
 module EnjuQuestion
   class Engine < ::Rails::Engine

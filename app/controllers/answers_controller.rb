@@ -1,8 +1,8 @@
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:show, :edit, :update, :destroy]
   before_action :check_policy, only: [:index, :new, :create]
-  before_action :set_user, except: [:edit]
-  before_action :set_question
+  before_action :get_user, except: [:edit]
+  before_action :get_question
 
   # GET /answers
   # GET /answers.json
@@ -112,7 +112,7 @@ class AnswersController < ApplicationController
   # PUT /answers/1.json
   def update
     respond_to do |format|
-      if @answer.update_attributes(answer_update_params)
+      if @answer.update(answer_update_params)
         flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.answer'))
         format.html { redirect_to @answer }
         format.json { head :no_content }
