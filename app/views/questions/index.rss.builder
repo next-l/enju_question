@@ -7,7 +7,7 @@ xml.rss('version' => "2.0",
       xml.title t('question.user_question', login_name: @user.username)
       xml.link questions_url(user_id: @user.username)
     else
-      xml.title t('question.library_group_question', library_group_name: @library_group.display_name.localize)
+      xml.title t('question.library_group_question', library_group_name: @library_group.display_name)
       xml.link questions_url
     end
     xml.description "Next-L Enju, an open source integrated library system developed by Project Next-L"
