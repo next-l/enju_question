@@ -9,3 +9,4 @@ end
 
 Manifestation.include(EnjuQuestion::EnjuManifestation)
 Item.include(EnjuQuestion::EnjuItem)
+Question.include(EnjuNdl::EnjuQuestion)

@@ -26,13 +26,8 @@ class Question < ActiveRecord::Base
   end
 
   acts_as_taggable_on :tags
-  enju_ndl_crd
 
   paginates_per 10
-
-  def self.crd_per_page
-    5
-  end
 
   def answer_body
     text = ""
