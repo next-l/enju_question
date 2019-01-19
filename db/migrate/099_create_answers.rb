@@ -1,21 +1,15 @@
 class CreateAnswers < ActiveRecord::Migration[5.2]
-  def self.up
+  def change
     create_table :answers do |t|
-      t.integer :user_id, :null => false
-      t.integer :question_id, :null => false
+      t.references :user, foreign_key: true, null: false
+      t.references :question, foreign_key: true, null: false
       t.text :body
       t.timestamps
       t.datetime :deleted_at
-      t.boolean :shared, :default => true, :null => false
+      t.boolean :shared, default: true, null: false
       t.string :state
       t.text :item_identifier_list
       t.text :url_list
     end
-    add_index :answers, :user_id
-    add_index :answers, :question_id
-  end
-
-  def self.down
-    drop_table :answers
   end
 end

@@ -166,8 +166,8 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
   end
 
   create_table "answer_has_items", force: :cascade do |t|
-    t.integer "answer_id"
-    t.integer "item_id"
+    t.bigint "answer_id", null: false
+    t.bigint "item_id", null: false
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -176,8 +176,8 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
   end
 
   create_table "answers", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "question_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "question_id", null: false
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -742,7 +742,7 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.text "body"
     t.boolean "shared", default: true, null: false
     t.integer "answers_count", default: 0, null: false
@@ -1121,6 +1121,10 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
   end
 
   add_foreign_key "agent_import_files", "users"
+  add_foreign_key "answer_has_items", "answers"
+  add_foreign_key "answer_has_items", "items"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "users"
   add_foreign_key "doi_records", "manifestations"
   add_foreign_key "isbn_record_and_manifestations", "isbn_records"
   add_foreign_key "isbn_record_and_manifestations", "manifestations"
@@ -1132,6 +1136,7 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
   add_foreign_key "libraries", "library_groups"
   add_foreign_key "library_groups", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "questions", "users"
   add_foreign_key "resource_import_files", "users"
   add_foreign_key "user_has_roles", "roles"
   add_foreign_key "user_has_roles", "users"
