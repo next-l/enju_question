@@ -19,9 +19,9 @@ gem "enju_ndl", github: "next-l/enju_ndl"
 gem "enju_subject", github: "next-l/enju_subject"
 gem "enju_bookmark", github: "next-l/enju_bookmark"
 gem "jquery-rails"
-gem 'mobility'
-gem 'rspec_junit_formatter'
+gem 'json_translate'
+gem 'rspec_junit_formatter', group: :test
+gem 'rails-controller-testing', group: :test
 
 # To use debugger
 # gem 'debugger'
-gem 'rails-controller-testing'

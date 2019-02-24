@@ -12,7 +12,7 @@ end
 #
 #  id         :bigint(8)        not null, primary key
 #  answer_id  :bigint(8)        not null
-#  item_id    :bigint(8)        not null
+#  item_id    :uuid             not null
 #  position   :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
