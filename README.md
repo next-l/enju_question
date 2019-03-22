@@ -1,4 +1,4 @@
-# EnjuSubject
+# EnjuQuestion
 [![CircleCI](https://circleci.com/gh/next-l/enju_question.svg?style=svg)](https://circleci.com/gh/next-l/enju_question)
 [![Coverage Status](https://coveralls.io/repos/github/next-l/enju_question/badge.svg?branch=master)](https://coveralls.io/github/next-l/enju_question?branch=master)
 [![security](https://hakiri.io/github/next-l/enju_question/master.svg)](https://hakiri.io/github/next-l/enju_question/master)
