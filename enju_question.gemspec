@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "enju_bookmark", "~> 0.3.0"
 
   s.add_development_dependency "enju_leaf", "~> 1.3.1"
-  s.add_development_dependency "enju_ndl", "~> 0.3.0"
+  s.add_development_dependency "enju_ndl", "~> 0.3.1"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"
   s.add_development_dependency "pg"
