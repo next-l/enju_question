@@ -35,6 +35,7 @@ RSpec.configure do |config|
   config.extend ControllerMacros, :type => :controller
 
   config.infer_spec_type_from_file_location!
+  Sunspot.session = Sunspot::SessionProxy::Retry5xxSessionProxy.new(Sunspot.session)
 end
 
 FactoryBot.definition_file_paths << "#{::Rails.root}/../../spec/factories"
