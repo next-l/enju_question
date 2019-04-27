@@ -63,8 +63,8 @@ end
 #
 # Table name: questions
 #
-#  id            :bigint(8)        not null, primary key
-#  user_id       :bigint(8)        not null
+#  id            :bigint           not null, primary key
+#  user_id       :bigint           not null
 #  body          :text
 #  shared        :boolean          default(TRUE), not null
 #  answers_count :integer          default(0), not null

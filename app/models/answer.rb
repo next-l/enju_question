@@ -41,9 +41,9 @@ end
 #
 # Table name: answers
 #
-#  id                   :bigint(8)        not null, primary key
-#  user_id              :bigint(8)        not null
-#  question_id          :bigint(8)        not null
+#  id                   :bigint           not null, primary key
+#  user_id              :bigint           not null
+#  question_id          :bigint           not null
 #  body                 :text
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
