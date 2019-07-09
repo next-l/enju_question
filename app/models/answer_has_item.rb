@@ -10,10 +10,10 @@ end
 #
 # Table name: answer_has_items
 #
-#  id         :bigint           not null, primary key
-#  answer_id  :bigint           not null
-#  item_id    :bigint           not null
+#  id         :integer          not null, primary key
+#  answer_id  :integer
+#  item_id    :integer
 #  position   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  created_at :datetime
+#  updated_at :datetime
 #

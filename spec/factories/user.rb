@@ -1,46 +1,28 @@
 FactoryBot.define do
-  factory :admin, class: User do
-    sequence(:username){|n| "admin_#{n}"}
-    sequence(:email){|n| "admin_#{n}@example.jp"}
-    password { 'adminpassword' }
-    password_confirmation { 'adminpassword' }
-    association :profile
-    after(:create) do |user|
-      user_has_role = UserHasRole.new
-      user_has_role.assign_attributes({user_id: user.id, role_id: Role.find_by(name: 'Administrator').id})
-      user_has_role.save
-      user.reload
-    end
+  factory :admin, class: User do |f|
+    f.sequence(:username){|n| "admin_#{n}"}
+    f.sequence(:email){|n| "admin_#{n}@example.jp"}
+    f.role {Role.find_by_name('Administrator')}
+    f.password { 'adminpassword' }
+    f.password_confirmation { 'adminpassword' }
   end
 
-  factory :librarian, class: User do
-    sequence(:username){|n| "librarian_#{n}"}
-    sequence(:email){|n| "librarian_#{n}@example.jp"}
-    password { 'librarianpassword' }
-    password_confirmation { 'librarianpassword' }
-    association :profile
-    after(:create) do |user|
-      user_has_role = UserHasRole.new
-      user_has_role.assign_attributes({user_id: user.id, role_id: Role.find_by(name: 'Librarian').id})
-      user_has_role.save
-      user.reload
-    end
+  factory :librarian, class: User do |f|
+    f.sequence(:username){|n| "librarian_#{n}"}
+    f.sequence(:email){|n| "librarian_#{n}@example.jp"}
+    f.role {Role.find_by_name('Librarian')}
+    f.password { 'librarianpassword' }
+    f.password_confirmation { 'librarianpassword' }
   end
 
-  factory :user, class: User do
-    sequence(:username){|n| "user_#{n}"}
-    sequence(:email){|n| "user_#{n}@example.jp"}
-    password { 'userpassword' }
-    password_confirmation { 'userpassword' }
-    association :profile
-    after(:create) do |user|
-      user_has_role = UserHasRole.new
-      user_has_role.assign_attributes({user_id: user.id, role_id: Role.find_by(name: 'User').id})
-      user_has_role.save
-      user.reload
-    end
+  factory :user, class: User do |f|
+    f.sequence(:username){|n| "user_#{n}"}
+    f.sequence(:email){|n| "user_#{n}@example.jp"}
+    f.role {Role.find_by_name('User')}
+    f.password { 'userpassword' }
+    f.password_confirmation { 'userpassword' }
   end
 
-  factory :invalid_user, class: User do
+  factory :invalid_user, class: User do |f|
   end
 end

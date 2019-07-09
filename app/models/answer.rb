@@ -41,12 +41,12 @@ end
 #
 # Table name: answers
 #
-#  id                   :bigint           not null, primary key
-#  user_id              :bigint           not null
-#  question_id          :bigint           not null
+#  id                   :integer          not null, primary key
+#  user_id              :integer          not null
+#  question_id          :integer          not null
 #  body                 :text
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
+#  created_at           :datetime
+#  updated_at           :datetime
 #  deleted_at           :datetime
 #  shared               :boolean          default(TRUE), not null
 #  state                :string

@@ -29,6 +29,10 @@ class Question < ActiveRecord::Base
 
   paginates_per 10
 
+  def self.crd_per_page
+    5
+  end
+
   def answer_body
     text = ""
     self.reload
@@ -63,8 +67,8 @@ end
 #
 # Table name: questions
 #
-#  id            :bigint           not null, primary key
-#  user_id       :bigint           not null
+#  id            :integer          not null, primary key
+#  user_id       :integer          not null
 #  body          :text
 #  shared        :boolean          default(TRUE), not null
 #  answers_count :integer          default(0), not null
@@ -72,6 +76,6 @@ end
 #  state         :string
 #  solved        :boolean          default(FALSE), not null
 #  note          :text
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  created_at    :datetime
+#  updated_at    :datetime
 #

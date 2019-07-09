@@ -8,5 +8,5 @@ class User < ActiveRecord::Base
 end
 
 Manifestation.include(EnjuQuestion::EnjuManifestation)
-Item.include(EnjuQuestion::EnjuItem)
 Question.include(EnjuNdl::EnjuQuestion)
+Item.include(EnjuQuestion::EnjuItem)
