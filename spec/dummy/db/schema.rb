@@ -498,6 +498,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_044909) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "admin_networks"
+    t.boolean "allow_bookmark_external_url", default: false, null: false
     t.string "url", default: "http://localhost:3000/"
     t.text "settings"
     t.text "html_snippet"
@@ -516,7 +517,6 @@ ActiveRecord::Schema.define(version: 2019_07_08_044909) do
     t.jsonb "display_name_translations", default: {}, null: false
     t.jsonb "login_banner_translations", default: {}, null: false
     t.jsonb "footer_banner_translations", default: {}, null: false
-    t.boolean "allow_bookmark_external_url", default: false, null: false
     t.index ["short_name"], name: "index_library_groups_on_short_name"
     t.index ["user_id"], name: "index_library_groups_on_user_id"
   end
@@ -687,9 +687,9 @@ ActiveRecord::Schema.define(version: 2019_07_08_044909) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "expired_at"
+    t.boolean "share_bookmarks"
     t.text "full_name_transcription"
     t.datetime "date_of_birth"
-    t.boolean "share_bookmarks"
     t.index ["library_id"], name: "index_profiles_on_library_id"
     t.index ["user_group_id"], name: "index_profiles_on_user_group_id"
     t.index ["user_id"], name: "index_profiles_on_user_id"
