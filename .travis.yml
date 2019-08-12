@@ -10,6 +10,8 @@ before_script:
   - bundle exec rake app:sunspot:solr:start
 services:
   - redis-server
+  - mysql
+  - postgresql
 env:
   - DB=sqlite
   - DB=mysql
@@ -18,3 +20,12 @@ notifications:
   slack:
     secure: nd4Wr2vUDgELs8xgMoh6KHazQplxuidbxRpFjw7zTAVc9m2rVTqhXq+zH1af8dhUZaImkD8qPu2IfeE0bLxEcF9UZluY9MOQmSx+7Oe9hURgh0HRoYk+XT1915OaR9R7bO7Vs3vHC1W/mWH0dRDF2hv06MSdh+xMz/taB9Js5lM=
 sudo: false
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+jdk:
+  - openjdk8
+dist: xenial
