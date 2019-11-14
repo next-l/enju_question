@@ -19,7 +19,7 @@ gem "enju_ndl", github: "next-l/enju_ndl"
 gem "enju_subject", github: "next-l/enju_subject"
 gem "enju_bookmark", github: "next-l/enju_bookmark"
 gem "jquery-rails"
-gem 'paper_trail'
+gem 'rails', '~> 5.2'
 group :test do
   gem 'rspec_junit_formatter'
   gem 'rails-controller-testing'
