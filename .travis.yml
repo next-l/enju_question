@@ -4,8 +4,7 @@ rvm:
   - 2.4.9
   - 2.5.7
 before_script:
-  - mysql -e 'create database enju_test'
-  - psql -c 'create database enju_test;' -U postgres
+  - psql -c 'create database enju_question_dummy_test;' -U postgres
   - bundle exec rake db:migrate
   - bundle exec rake app:sunspot:solr:start
 services:
@@ -13,8 +12,6 @@ services:
   - mysql
   - postgresql
 env:
-  - DB=sqlite
-  - DB=mysql
   - DB=postgresql
 notifications:
   slack:
