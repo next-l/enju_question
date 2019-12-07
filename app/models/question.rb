@@ -26,7 +26,6 @@ class Question < ActiveRecord::Base
   end
 
   acts_as_taggable_on :tags
-  enju_ndl_crd
 
   paginates_per 10
 
