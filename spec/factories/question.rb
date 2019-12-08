@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :question do |f|
-    f.sequence(:body){|n| "question_#{n}"}
-    f.user_id{FactoryBot.create(:user).id}
+  factory :question do
+    sequence(:body){|n| "question_#{n}"}
+    association :user, factory: :user
   end
 end
