@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 require 'rails_helper'
 
 describe "questions/index.rss.builder" do
@@ -14,6 +13,6 @@ describe "questions/index.rss.builder" do
   it "renders the XML template" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/Questions in Enju Library/)
+    rendered.should match(/Questions in unknown/)
   end
 end
