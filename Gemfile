@@ -13,5 +13,7 @@ gemspec
 
 # To use debugger
 # gem 'debugger'
-gem 'rspec_junit_formatter', group: :test
-gem 'rails-controller-testing', group: :test
+group :test do
+  gem 'rspec_junit_formatter'
+  gem 'rails-controller-testing'
+end
