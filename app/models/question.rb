@@ -4,11 +4,10 @@ class Question < ActiveRecord::Base
   scope :private_questions, -> {where(shared: false)}
   scope :solved, -> {where(solved: true)}
   scope :unsolved, -> {where(solved: false)}
-  belongs_to :user, validate: true
+  belongs_to :user
   has_many :answers, dependent: :destroy
 
-  validates_associated :user
-  validates_presence_of :user, :body
+  validates :user, :body, presence: true
 
   searchable do
     text :body, :answer_body
@@ -26,7 +25,6 @@ class Question < ActiveRecord::Base
   end
 
   acts_as_taggable_on :tags
-  enju_ndl_crd
 
   paginates_per 10
 
