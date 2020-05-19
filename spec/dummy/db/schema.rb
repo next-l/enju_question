@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_09_023040) do
+ActiveRecord::Schema.define(version: 2020_04_25_074822) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer "basket_id"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
     t.integer "agent_import_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean "most_recent", null: false
+    t.index ["agent_import_file_id", "most_recent"], name: "index_agent_import_file_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["agent_import_file_id"], name: "index_agent_import_file_transitions_on_agent_import_file_id"
     t.index ["sort_key", "agent_import_file_id"], name: "index_agent_import_file_transitions_on_sort_key_and_file_id", unique: true
   end
@@ -58,7 +60,6 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
   create_table "agent_import_results", force: :cascade do |t|
     t.integer "agent_import_file_id"
     t.integer "agent_id"
-    t.integer "user_id"
     t.text "body"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -109,7 +110,6 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
   end
 
   create_table "agents", force: :cascade do |t|
-    t.integer "user_id"
     t.string "last_name"
     t.string "middle_name"
     t.string "first_name"
@@ -155,12 +155,13 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
     t.string "birth_date"
     t.string "death_date"
     t.string "agent_identifier"
+    t.integer "profile_id"
     t.index ["agent_identifier"], name: "index_agents_on_agent_identifier"
     t.index ["country_id"], name: "index_agents_on_country_id"
     t.index ["full_name"], name: "index_agents_on_full_name"
     t.index ["language_id"], name: "index_agents_on_language_id"
+    t.index ["profile_id"], name: "index_agents_on_profile_id"
     t.index ["required_role_id"], name: "index_agents_on_required_role_id"
-    t.index ["user_id"], name: "index_agents_on_user_id", unique: true
   end
 
   create_table "answer_has_items", force: :cascade do |t|
@@ -274,6 +275,10 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "attachment_file_name"
+    t.string "attachment_content_type"
+    t.integer "attachment_file_size"
+    t.datetime "attachment_updated_at"
   end
 
   create_table "colors", force: :cascade do |t|
@@ -403,6 +408,8 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
     t.integer "import_request_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean "most_recent", null: false
+    t.index ["import_request_id", "most_recent"], name: "index_import_request_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["import_request_id"], name: "index_import_request_transitions_on_import_request_id"
     t.index ["sort_key", "import_request_id"], name: "index_import_request_transitions_on_sort_key_and_request_id", unique: true
   end
@@ -416,6 +423,27 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
     t.index ["isbn"], name: "index_import_requests_on_isbn"
     t.index ["manifestation_id"], name: "index_import_requests_on_manifestation_id"
     t.index ["user_id"], name: "index_import_requests_on_user_id"
+  end
+
+  create_table "item_custom_properties", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "display_name", null: false
+    t.text "note"
+    t.integer "position", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_item_custom_properties_on_name", unique: true
+  end
+
+  create_table "item_custom_values", force: :cascade do |t|
+    t.integer "item_custom_property_id", null: false
+    t.integer "item_id", null: false
+    t.text "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_custom_property_id", "item_id"], name: "index_item_custom_values_on_custom_item_property_and_item_id", unique: true
+    t.index ["item_custom_property_id"], name: "index_item_custom_values_on_custom_property_id"
+    t.index ["item_id"], name: "index_item_custom_values_on_item_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -438,7 +466,8 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
     t.string "binding_item_identifier"
     t.string "binding_call_number"
     t.datetime "binded_at"
-    t.integer "manifestation_id"
+    t.integer "manifestation_id", null: false
+    t.text "memo"
     t.index ["binding_item_identifier"], name: "index_items_on_binding_item_identifier"
     t.index ["bookstore_id"], name: "index_items_on_bookstore_id"
     t.index ["item_identifier"], name: "index_items_on_item_identifier"
@@ -541,6 +570,27 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
     t.datetime "updated_at"
   end
 
+  create_table "manifestation_custom_properties", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "display_name", null: false
+    t.text "note"
+    t.integer "position", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_manifestation_custom_properties_on_name", unique: true
+  end
+
+  create_table "manifestation_custom_values", force: :cascade do |t|
+    t.integer "manifestation_custom_property_id", null: false
+    t.integer "manifestation_id", null: false
+    t.text "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manifestation_custom_property_id", "manifestation_id"], name: "index_manifestation_custom_values_on_property_manifestation", unique: true
+    t.index ["manifestation_custom_property_id"], name: "index_manifestation_custom_values_on_custom_property_id"
+    t.index ["manifestation_id"], name: "index_manifestation_custom_values_on_manifestation_id"
+  end
+
   create_table "manifestation_relationship_types", force: :cascade do |t|
     t.string "name", null: false
     t.text "display_name"
@@ -575,7 +625,6 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
     t.string "access_address"
     t.integer "language_id", default: 1, null: false
     t.integer "carrier_type_id", default: 1, null: false
-    t.integer "extent_id", default: 1, null: false
     t.integer "start_page"
     t.integer "end_page"
     t.integer "height"
@@ -605,7 +654,7 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
     t.datetime "valid_until"
     t.datetime "date_submitted"
     t.datetime "date_accepted"
-    t.datetime "date_caputured"
+    t.datetime "date_captured"
     t.string "pub_date"
     t.string "edition_string"
     t.integer "volume_number"
@@ -617,8 +666,12 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
     t.integer "month_of_publication"
     t.boolean "fulltext_content"
     t.string "doi"
-    t.boolean "periodical"
+    t.boolean "serial"
     t.text "statement_of_responsibility"
+    t.text "publication_place"
+    t.text "extent"
+    t.text "dimensions"
+    t.text "memo"
     t.index ["access_address"], name: "index_manifestations_on_access_address"
     t.index ["date_of_publication"], name: "index_manifestations_on_date_of_publication"
     t.index ["doi"], name: "index_manifestations_on_doi"
@@ -713,9 +766,7 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
   create_table "picture_files", force: :cascade do |t|
     t.integer "picture_attachable_id"
     t.string "picture_attachable_type"
-    t.string "content_type"
     t.text "title"
-    t.string "thumbnail"
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -725,6 +776,8 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
     t.datetime "picture_updated_at"
     t.text "picture_meta"
     t.string "picture_fingerprint"
+    t.integer "picture_width"
+    t.integer "picture_height"
     t.index ["picture_attachable_id", "picture_attachable_type"], name: "index_picture_files_on_picture_attachable_id_and_type"
   end
 
@@ -825,6 +878,8 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
     t.integer "resource_export_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean "most_recent", null: false
+    t.index ["resource_export_file_id", "most_recent"], name: "index_resource_export_file_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["resource_export_file_id"], name: "index_resource_export_file_transitions_on_file_id"
     t.index ["sort_key", "resource_export_file_id"], name: "index_resource_export_file_transitions_on_sort_key_and_file_id", unique: true
   end
@@ -847,6 +902,8 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
     t.integer "resource_import_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean "most_recent", null: false
+    t.index ["resource_import_file_id", "most_recent"], name: "index_resource_import_file_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["resource_import_file_id"], name: "index_resource_import_file_transitions_on_file_id"
     t.index ["sort_key", "resource_import_file_id"], name: "index_resource_import_file_transitions_on_sort_key_and_file_id", unique: true
   end
@@ -880,6 +937,7 @@ ActiveRecord::Schema.define(version: 2018_07_09_023040) do
     t.text "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text "error_message"
     t.index ["item_id"], name: "index_resource_import_results_on_item_id"
     t.index ["manifestation_id"], name: "index_resource_import_results_on_manifestation_id"
     t.index ["resource_import_file_id"], name: "index_resource_import_results_on_resource_import_file_id"
